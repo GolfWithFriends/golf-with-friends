@@ -1,0 +1,29 @@
+@import "mixins.less";
+#course-form {
+	padding-top: 25px;
+	form {
+		border: 1px solid #aaa;
+		padding: 25px;
+	}
+}
+
+.page-collection {
+	position: relative;
+	height: 100%;
+
+	.page {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		opacity: 0;
+		z-index: -1;
+
+		.transition(opacity .2s linear);
+	}
+
+	.page.active {
+		opacity: 1;
+		z-index: 1;
+	}
+}

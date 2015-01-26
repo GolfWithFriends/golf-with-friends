@@ -1,0 +1,48 @@
+#weather-wrap {
+	table{
+		text-align: center;
+		vertical-align: middle;
+		font-size:10pt;
+		position:relative;
+		margin-left:auto;
+		margin-right:auto;
+
+		th{
+			padding: 10px 0;
+
+			&.tableTitle{
+				font-size:20pt;
+				text-decoration: underline;
+			}
+		}
+
+		td {
+			padding: 1em;
+			border: 1px solid #bbb;
+
+			&#ch{
+				width: 275px;
+				height: 275px;
+				background-color: #bbb;
+			}
+
+			.crosshair-wrap{
+				margin: -9.5em 0 0 -18em;
+				position: relative;
+			}
+
+			img{
+				float: left;
+				position: absolute;
+
+				.wind-crosshair{
+					z-index: -9 !important;
+				}
+
+				.wind-arrow{
+					z-index: 1 !important;
+				}
+			}
+		}
+	}
+}

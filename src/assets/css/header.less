@@ -1,0 +1,107 @@
+@import "mixins.less";
+@green: rgb(45, 100, 45);
+header {
+	background: @green;
+	padding: 15px;
+	position: relative;
+
+	h1 {
+		margin: 0;
+		font-weight: 300;
+		font-size: 18px;
+		display: inline-block;
+
+		a,
+		a:hover,
+		a:visited {
+			text-decoration: none;
+			color: white;
+		}
+	}
+
+	nav {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+
+		ul { 
+			padding: 0;
+			margin: 0;
+			padding: 15px;
+			display: inline-block;
+			height: 100%;
+		}
+		li {
+			display: inline-block;
+			padding: 0 5px;
+		}
+		a {
+			color: white;
+			font-size: 13px;
+		}
+	}
+
+	ul.user {
+		border-left: 1px solid white;
+	}
+
+	.signed-in {
+		display: none;
+	}
+	&.authenticated {
+		.signed-in {
+			display: inline-block;
+		}
+		.sign-in {
+			display: none;
+		}
+	}
+}
+#body-container {
+	height: 100%;
+	position: relative;
+	.transition(transform .25s ease-out);
+}
+
+#sign-in {
+	display: none;
+}
+
+.side-bar {
+	position: absolute;
+	right: -150px;
+	width: 150px;
+	background: @green;
+	top: 0;
+    border-left: 1px solid #888;
+	height: 100%;
+	.transition(all .2s linear);
+
+	a {
+	    color: white;
+	    text-decoration: none;
+	    display: block;
+	    padding: 15px 10px;
+	    border-bottom: 1px solid #ccc;
+
+	    &:hover {
+	    	background: rgb(29, 68, 29);
+	    }
+	}
+
+	ul {
+	    padding: 0;
+	    margin: 0;
+	    list-style: none;
+	}
+}
+body.sidebar-opened {
+	#body-container {
+		.translateX(-150px);
+	}
+	.side-bar {
+		box-shadow: -10px 30px 50px #000
+	}
+}
+
