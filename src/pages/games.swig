@@ -38,7 +38,7 @@ title: 'My Games'
 			<a href="game.html?game={{id}}">{{^course}}{{id}}{{/course}}{{#course}}{{date}} @ {{course.name}}{{/course}}</a>
 		</td>
 		<td>
-			http://ss15-fart-flask.divshot.io/game.html?game={{id}}
+			http://ss15-fart-flask.divshot.io/join.html?game={{id}}
 		</td>
 
 	</tr>
