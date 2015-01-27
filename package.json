@@ -19,6 +19,7 @@
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-newer": "^0.7.0",
+    "grunt-usemin": "^3.0.0",
     "handlebars-helpers": "^0.5.8"
   }
 }

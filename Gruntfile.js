@@ -13,7 +13,7 @@ module.exports = function (grunt) {
 		},
 
 		clean: {
-			all: ['dist']
+			dist: ['dist']
 		},
 
 		assemble: {
@@ -33,22 +33,17 @@ module.exports = function (grunt) {
 			}
 		},
 
-		concat: {
-			options: {
-				separator: ';'
-			},
-			dist: {
-				src: ['src/assets/js/**/*.js'],
-				dest: 'dist/js/all.min.js'
-			}
-		},
-
 		copy: {
-			dist: {
+			static: {
 				files: [
 					{ expand: true, flatten: true, src: 'src/assets/static/js/**', dest: 'dist/js/', filter: 'isFile' },
 					{ expand: true, flatten: true, src: 'src/assets/static/*.*', dest: 'dist/' }
 
+				]
+			},
+			dev: {
+				files: [
+					{ expand: true, flatten: true, src: 'src/assets/js/**', dest: 'dist/js/', filter: 'isFile' }
 				]
 			}
 		},
@@ -65,26 +60,14 @@ module.exports = function (grunt) {
 			}
 		},
 
-		uglify: {
-			dist: {
-				files: {
-					'dist/js/all.min.js': ['<%= concat.dist.dest %>']
-				}
-			}
-		},
-
 		watch: {
 			assets: {
 				files: ['src/assets/**/*'],
-				tasks: ['concat', 'uglify', 'less']
+				tasks: ['copy', 'less' ]
 			},
 			src: {
 				files: ['src/layouts/**/*', 'src/pages/**/*'],
 				tasks: ['assemble']
-			},
-			dev_assets: {
-				files: ['src/assets/**/*'],
-				tasks: ['concat', 'less']
 			}
 		},
 
@@ -92,15 +75,29 @@ module.exports = function (grunt) {
 			options: {
 				logConcurrentOutput: true
 			},
-			prod: {
-				tasks: ['watch:src', 'watch:assets']
-			},
 			dev: {
-				tasks: ['watch:dev_assets', 'watch:src']
+				tasks: ['watch:assets', 'watch:src']
 			}
-		}
+		},
+
+		useminPrepare: {
+			html: 'dist/**/*.html',
+			options: {
+				dest: 'dist',
+				root: 'src/assets'
+			}
+		},
+
+		usemin: {
+			html: ['dist/{,*/}*.html'],
+			// css: ['dist/css/{,*/}*.css'],
+			options: {
+				dirs: ['dist']
+			}
+		},
 	});
 
+	grunt.loadNpmTasks('grunt-usemin');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-contrib-clean');
@@ -110,9 +107,26 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('assemble');
-	grunt.loadNpmTasks('grunt-newer');
 
 	/* grunt tasks */
-	grunt.registerTask('development', ['clean', 'copy', 'concat', 'less', 'assemble', 'connect', 'concurrent:dev'])
-	grunt.registerTask('default', ['clean', 'copy', 'concat', 'uglify', 'less', 'assemble', 'connect', 'concurrent:prod']);
+	grunt.registerTask('default', [
+		'clean:dist', 
+	 	'assemble', 
+	 	'copy', 
+	 	'less', 
+	 	'connect', 
+	 	'concurrent:dev'
+ 	]);
+
+	grunt.registerTask('production', [
+		'clean:dist', 
+		'assemble', 
+		'useminPrepare', 
+		'copy:static', 
+		'concat:generated', 
+		'uglify:generated', 
+		'less', 
+		'usemin', 
+		'connect::keepalive'
+	]);
 };

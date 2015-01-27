@@ -36,7 +36,23 @@
 			app.viewstate = new Backbone.Model();
 			app.fbRoot = "https://torid-inferno-1191.firebaseio.com/";
 		</script>
-		<script type="text/javascript" src="js/all.min.js"></script>
+
+		<!-- build:js js/all.min.js -->
+		<script type="text/javascript" src="/js/chart.js"></script>
+		<script type="text/javascript" src="/js/common.js"></script>
+		<script type="text/javascript" src="/js/courses.js"></script>
+		<script type="text/javascript" src="/js/firebase.js"></script>
+		<script type="text/javascript" src="/js/game.js"></script>
+		<script type="text/javascript" src="/js/games.js"></script>
+		<script type="text/javascript" src="/js/join.js"></script>
+		<script type="text/javascript" src="/js/location.js"></script>
+		<script type="text/javascript" src="/js/login.js"></script>
+		<script type="text/javascript" src="/js/main.js"></script>
+		<script type="text/javascript" src="/js/topbar.js"></script>
+		<script type="text/javascript" src="/js/weather.js"></script>
+		<!-- endbuild -->
+
+		<!--<script type="text/javascript" src="js/all.min.js"></script>-->
 
 		{% block scripts %}{% endblock %}
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
