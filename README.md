@@ -2,7 +2,7 @@
 
 A fantastic real-time group scorekeeping application.
 
-<br>
+
 ###Setup
 After first checking out the project 
 ```
