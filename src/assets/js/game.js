@@ -7,7 +7,7 @@
 	}
 
 	var game = new(Backbone.Firebase.Model.extend({
-		url: 'https://glaring-torch-1858.firebaseio.com/games/' + getParameterByName('game')
+		url: app.fbRoot + 'games/' + getParameterByName('game')
 	}))();
 
 	var playerModel = Backbone.Model.extend({

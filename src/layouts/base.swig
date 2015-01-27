@@ -34,7 +34,7 @@
 		<script>
 			var app = {};
 			app.viewstate = new Backbone.Model();
-			app.fbRoot = "https://glaring-torch-1858.firebaseio.com/";
+			app.fbRoot = "https://torid-inferno-1191.firebaseio.com/";
 		</script>
 		<script type="text/javascript" src="js/all.min.js"></script>
 

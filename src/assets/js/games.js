@@ -1,10 +1,10 @@
 (function () {
 
 	var gameCollection = Backbone.Firebase.Collection.extend({
-		url: 'https://glaring-torch-1858.firebaseio.com/games'
+		url: app.fbRoot + 'games'
 	});
 	var courseCollection = Backbone.Firebase.Collection.extend({
-		url: 'https://glaring-torch-1858.firebaseio.com/courses'
+		url: app.fbRoot + 'courses'
 	});
 
 	var gamesPages;

@@ -1,5 +1,5 @@
 (function () {
-	var myFirebaseRef = new Firebase("https://torid-inferno-1191.firebaseio.com/");
+	var myFirebaseRef = new Firebase(app.fbRoot);
 
 	app.fb = myFirebaseRef;
 	app.usersDb = myFirebaseRef.child('users');
