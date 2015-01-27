@@ -1,14 +1,13 @@
-#Team Fart Flask - Static Showdown 2015
+#Golf With Friends
 
-This is the official competition repo for Team Fart Flask for Static Showdown 2015.
+A fantastic real-time group scorekeeping application.
 
-
+<br>
 ###Setup
 After first checking out the project 
 ```
 npm install
 npm install grunt-cli -g
-npm install divshot-cli -g
 ```
 
 Then run [grunt](http://gruntjs.com/) to assemble the static pages and start a web server.  It listens on `localhost:8000` by default.
@@ -16,11 +15,21 @@ Then run [grunt](http://gruntjs.com/) to assemble the static pages and start a w
 grunt
 ```
 
-####Divshot
+####[Grunt](http://gruntjs.com/)
+`src/` contains all the files that you'll be editing.  `grunt` assembles those files and puts them in the `dist/` folder which is pushed out to divshot when the `divshot push <CONFIG>` command is run.
+
+`src/pages/` contains the partials that go inside the content blocks that are inside of `page.swig` and `base.swig`
+
+`Gruntfile.js` does a lot of things.
++ assembles the `src/pages/` template files with the master page files and spits out html pages into `dist/`
++ combines and minifies `.less` & `.js` files into `dist/css/all.min.css` and `dist/js/all.min.js` respectively
++ runs the server on `http://localhost:8000/`
+
+####[Divshot](https://divshot.com/)
 Look over the Divshot [Hosting 101](http://docs.divshot.com/guides/getting-started) and install `divshot-cli`:
 
 ```
-npm install divshot-cli
+npm install divshot-cli -g
 ```
 
 Login to `divshot-cli` using the `divshot login` command.  This should open a browser window where you'll authenticate the divshot cli environment.
@@ -30,18 +39,18 @@ Each of the three Divshot application environments (development, staging, and pr
 
 You may also want to check out Divshot's [Builds and Environments](http://docs.divshot.com/guides/builds) page if you'd like to know more about their three-tiered environment system
 
-####[Deployment](http://docs.divshot.com/guides/builds#deploying-to-an-environment)
-To deploy to [development.ss15-fart-flask.divshot.io](http://development.ss15-fart-flask.divshot.io/), run from the repo root:
+#####[Deployment](http://docs.divshot.com/guides/builds#deploying-to-an-environment)
+To deploy to [development.golf-with-friends.divshot.io](http://development.golf-with-friends.divshot.io/), run from the repo root:
 ```
 divshot push
 ```
-or (see [Environment Variables](http://docs.divshot.com/guides/environment-variables))
+or (replace `<config>` with `development`, `staging`, or `production`)
 ```
-divshot push CONFIG
+divshot push <CONFIG>
 ```
 
-####[Promotion](http://docs.divshot.com/guides/builds#promoting-builds-and-rollback)
-To promote to [staging](http://staging.ss15-fart-flask.divshot.io/) or [production](http://ss15-fart-flask.divshot.io/):
+#####[Promotion](http://docs.divshot.com/guides/builds#promoting-builds-and-rollback)
+To promote to [staging](http://staging.golf-with-friends.divshot.io/) or [production](http://golf-with-friends.divshot.io/):
 ```
 divshot promote development staging
 ```
@@ -49,13 +58,3 @@ or
 ```
 divshot promote development production
 ```
-
-####[Grunt](http://gruntjs.com/)
-`src/` contains all the files that you'll be editing.  `grunt` assembles those files and puts them in the `dist/` folder which is pushed out to divshot when the `divshot push CONFIG` command is run.
-
-`src/pages/` contains the partials that go inside the content blocks that are inside of `page.swig` and `base.swig`
-
-`Gruntfile.js` does a lot of things.
-+ assembles the `src/pages/` template files with the master page files and spits out html pages into `dist/`
-+ combines and minifies `.less` & `.js` files into `dist/css/all.min.css` and `dist/js/all.min.js` respectively
-+ runs the server on `http://localhost:8000/`
