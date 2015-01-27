@@ -5,14 +5,31 @@ title: 'Weather'
 {% extends 'src/layouts/base.swig' %}
 {% block content %}
 <div id="weather-wrap">
-	<table id="weather">
+	<div class="loading">
+		<h1>Finding you...</h1>
+		<br />
+		<div class='loader1'>
+		  <div>
+		    <div>
+		      <div>
+		        <div>
+		          <div>
+		            <div></div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div> <!-- End loader -->
+	</div>
+	<table id="weather" class="hidden">
 		<tr>
-			<th colspan="4" class="tableTitle">Weather</th>
+			<th colspan="4" class="tableTitle"><h1>Weather</h1></th>
 		</tr>
 		<tr>
 			<td colspan="2" class="deets">
 				<p class="station">--</p>
-				<small>Elevation: <span class="elev">--</span> | Location: <span class="latt">--</span>&nbsp;<span class="long">--</span></small>
+				<small>Elevation: <span class="elev">--</span> | Location: <span class="latt">--</span>,&nbsp;<span class="long">--</span></small>
 				<br />
 				<small class="last-updated">--</small>
 			</td>
@@ -30,7 +47,8 @@ title: 'Weather'
 		<tr>
 			<td>Wind</td>
 			<td>
-				<p><span class="wind-speed">--</span> out of the <span class="wind-dir">--</span></p>
+				<!--<p><span class="wind-speed">-</span> out of the <span class="wind-dir">-</span></p>-->
+				<p class="wind-string">--</p>
 			</td>
 		</tr>
 		<tr>

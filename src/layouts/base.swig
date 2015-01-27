@@ -7,7 +7,8 @@
 		<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css' />
 		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css' />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
-		<link rel="Stylesheet" type="text/css" href="css/all.min.css" />
+		<link rel="stylesheet" href="css/loader.css" type="text/css" />
+		<link rel="Stylesheet" href="css/all.min.css" type="text/css" />
 		<link rel="icon" href="favicon.ico" />
 	</head>
 	<body>

@@ -3,16 +3,12 @@
 		$("header .weather").addClass("hidden");
 	}
 
-	var wundergroundApiKey = "1eae409b3b5579d9";
-	var wxLocation = app.location.getLocation(function(loc){
-		console.log(loc.zipCode);
-	});	
-	var zipCode = 65202;
+	var wundergroundApiKey = "c6b9d3f094b7d82b";
 
-	function getWeather(){
+	function getWeather(zip_code){
 		$.ajax({
 			"async" : true,
-			"url" : "http://api.wunderground.com/api/" + wundergroundApiKey + "/conditions/q/" + zipCode + ".json?callback=?",
+			"url" : "http://api.wunderground.com/api/" + wundergroundApiKey + "/conditions/q/" + zip_code + ".json?callback=?",
 			"dataType" : "jsonp",
 			"method" : "GET",
 			"error": function (jqXHR, textStatus, errorThrown) {
@@ -25,9 +21,28 @@
 				var currObs = jqXHR.responseJSON.current_observation;
 				turnArrow(currObs.wind_degrees);
 				updateView(currObs);
-				get8HourForecastJSON();
+				get8HourForecastJSON(zip_code);
 			}
 		});
+		console.log("Weather updated\n");
+	}
+
+	function getLocationZip(){
+		app.location.getLocation().done(function (loc) {
+			setRefreshInterval(app.location.cache.zip);
+		}).fail(function () {
+			console.log("We were unable to get your location. Sorry");
+		});
+	}
+
+	function setRefreshInterval(zc){
+		$('.loading').toggleClass('hidden');
+		$('#weather').toggleClass('hidden');
+		getWeather(zc); // Get weather now, then set interval
+		window.setInterval(function (){
+			getWeather(zc)
+		}, 300000);
+		console.log("Refresh interval set to " + (300000 / 1000 / 60) + " minutes");
 	}
 
 	function updateView(currObs){
@@ -37,14 +52,16 @@
 		$('td.deets .latt').html(currObs.observation_location.latitude + '°');
 		$('td.deets .last-updated').html(currObs.observation_time);
 		$('td.temp').html(currObs.temp_f + " °F<br />(Feels like " + currObs.feelslike_f + " °F)");
-		$('td .wind-speed').html(currObs.wind_mph + " mph");
-		$('td .wind-dir').html(currObs.wind_dir);
+		$('td .wind-string').html(function () {
+			var i = currObs.wind_string.indexOf('Gust');
+			return currObs.wind_string.substring(0, i) + '<br />' + currObs.wind_string.substring(i);
+		});
 	}
 
 	function drawChart(dataSet){
 		var ctx = document.querySelector("#eight-hr-forecast-chart").getContext("2d");
 		var hrChart = new Chart(ctx).Line(createChartData(dataSet), {
-			bezierCurve: false
+			bezierCurve: true
 		});
 	}
 
@@ -84,10 +101,10 @@
 		return data;
 	}
 
-	function get8HourForecastJSON(){
+	function get8HourForecastJSON(zc){
 		var JSON = $.ajax({
 			"async" : true,
-			"url" : "http://api.wunderground.com/api/" + wundergroundApiKey + "/hourly/q/" + zipCode + ".json?callback=?",
+			"url" : "http://api.wunderground.com/api/" + wundergroundApiKey + "/hourly/q/" + zc + ".json?callback=?",
 			"dataType" : "jsonp",
 			"method" : "GET",
 			"error": function (jqXHR, textStatus, errorThrown) {
@@ -114,5 +131,7 @@
 	}
 
 	app.weather = {};
-	app.weather.init = getWeather;
+	app.weather.init = function () {
+		getLocationZip();
+	};
 })();

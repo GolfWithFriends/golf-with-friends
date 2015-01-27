@@ -37,6 +37,7 @@ module.exports = function (grunt) {
 			static: {
 				files: [
 					{ expand: true, flatten: true, src: 'src/assets/static/js/**', dest: 'dist/js/', filter: 'isFile' },
+					{ expand: true, flatten: true, src: 'src/assets/static/css/**', dest: 'dist/css/', filter: 'isFile' },
 					{ expand: true, flatten: true, src: 'src/assets/static/*.*', dest: 'dist/' }
 
 				]
