@@ -4,6 +4,8 @@
 	}
 
 	var wundergroundApiKey = "c6b9d3f094b7d82b";
+	var hoursToDisplay = 12;
+	var refreshInterval = 300000; // milliseconds
 
 	function getWeather(zip_code){
 		$.ajax({
@@ -21,7 +23,7 @@
 				var currObs = jqXHR.responseJSON.current_observation;
 				turnArrow(currObs.wind_degrees);
 				updateView(currObs);
-				get8HourForecastJSON(zip_code);
+				getHourlyForecastJSON(zip_code);
 			}
 		});
 		console.log("Weather updated\n");
@@ -41,8 +43,8 @@
 		getWeather(zc); // Get weather now, then set interval
 		window.setInterval(function (){
 			getWeather(zc)
-		}, 300000);
-		console.log("Refresh interval set to " + (300000 / 1000 / 60) + " minutes");
+		}, refreshInterval);
+		console.log("Refresh interval set to " + (refreshInterval / 1000 / 60) + " minutes");
 	}
 
 	function updateView(currObs){
@@ -70,10 +72,10 @@
 		var labelSet = [];
 		var date = new Date();
 		var hour = date.getHours();
-		for (i=0; i<8; i++){
+		for (i=0; i<hoursToDisplay; i++){
 			fDataSet[i] = dataSet[i].temp.english;
 		}
-		for (j=0; j<8; j++){
+		for (j=0; j<hoursToDisplay; j++){
 			labelSet[j] = (hour + (j + 1));
 			if (labelSet[j] > 23){
 				labelSet[j] = labelSet[j] - 24;
@@ -90,7 +92,7 @@
 		            label: "Hourly Forecast",
 		            fillColor: "rgba(220,220,220,0.2)",
 		            strokeColor: "rgba(220,220,220,1)",
-		            pointColor: "rgba(220,220,220,1)",
+		            pointColor: "rgba(200,200,200,1)",
 		            pointStrokeColor: "#fff",
 		            pointHighlightFill: "#fff",
 		            pointHighlightStroke: "rgba(220,220,220,1)",
@@ -101,7 +103,7 @@
 		return data;
 	}
 
-	function get8HourForecastJSON(zc){
+	function getHourlyForecastJSON(zc){
 		var JSON = $.ajax({
 			"async" : true,
 			"url" : "http://api.wunderground.com/api/" + wundergroundApiKey + "/hourly/q/" + zc + ".json?callback=?",
@@ -116,7 +118,7 @@
 				}
 				var currHourly = jqXHR.responseJSON.hourly_forecast;
 				var curr = [];
-				for (i=0; i<8; i++){
+				for (i=0; i<hoursToDisplay; i++){
 					curr[i] = currHourly[i];
 				}
 				drawChart(curr);
