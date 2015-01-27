@@ -131,7 +131,5 @@
 	}
 
 	app.weather = {};
-	app.weather.init = function () {
-		getLocationZip();
-	};
+	app.weather.init = getLocationZip
 })();
