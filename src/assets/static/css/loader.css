@@ -132,8 +132,3 @@ body {
   -webkit-animation: rotate2 4s infinite linear;
           animation: rotate2 4s infinite linear;
 }
-
-div:hover {
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
-}
