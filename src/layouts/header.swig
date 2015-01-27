@@ -1,7 +1,7 @@
 <header>
-	<h1><a href="/">Golf With Friends</a></h1>
+	<h1 class="logo-text"><a href="/">Golf With Friends</a></h1>
 	<nav>
-		<ul class="nav-links">
+		<ul class="weather">
 			<li class="weather-link"><a href="/weather.html">Weather</a></li>
 		</ul>
 		<ul class="user">

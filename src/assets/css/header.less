@@ -4,11 +4,12 @@ header {
 	background: @green;
 	padding: 15px;
 	position: relative;
+	font-family: 'Roboto Condensed';
 
 	h1 {
 		margin: 0;
 		font-weight: 300;
-		font-size: 18px;
+		font-size: 26px;
 		display: inline-block;
 
 		a,
@@ -27,29 +28,27 @@ header {
 
 		ul { 
 			padding: 0;
-			margin: 0;
+			margin: 0 -3px 0 0;
 			padding: 15px;
 			display: inline-block;
 			height: 100%;
-		}
-		li {
-			display: inline-block;
-			padding: 0 5px;
+			letter-spacing: 0.5px;
+			border-left: 1px solid white;
+
+			&:hover{
+				background: rgba(255, 255, 255, 0.15) !important;
+			}
+
+			li {
+				display: inline-block;
+				padding: 5px;
+			}
 		}
 		a {
 			color: white;
-			font-size: 13px;
+			font-size: 15px;
 		}
 	}
-
-	ul.nav-links{
-		border-left: 1px solid white;
-	}
-
-	ul.user {
-		border-left: 1px solid white;
-	}
-
 	.signed-in {
 		display: none;
 	}

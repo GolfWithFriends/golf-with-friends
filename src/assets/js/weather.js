@@ -1,23 +1,13 @@
 (function () {
-	var wundergroundApiKey = "1eae409b3b5579d9";
+	if (!$("header").hasClass("authenticated")){
+		$("header .weather").addClass("hidden");
+	}
 
+	var wundergroundApiKey = "1eae409b3b5579d9";
 	var wxLocation = app.location.getLocation(function(loc){
 		console.log(loc.zipCode);
 	});	
 	var zipCode = 65202;
-
-	var weatherObj = {
-		"get": {
-			"current": getWeather,
-			"hourly": get8HourForecastJSON
-		},
-		"gethourly": get8HourForecastJSON,
-		"updateView": updateView,
-		"chart": {
-			"draw": drawChart,
-			"createDataSet": createChartData
-		}
-	};
 
 	function getWeather(){
 		$.ajax({
@@ -35,7 +25,7 @@
 				var currObs = jqXHR.responseJSON.current_observation;
 				turnArrow(currObs.wind_degrees);
 				updateView(currObs);
-				var eightHrFcast = get8HourForecastJSON();
+				get8HourForecastJSON();
 			}
 		});
 	}
@@ -53,7 +43,9 @@
 
 	function drawChart(dataSet){
 		var ctx = document.querySelector("#eight-hr-forecast-chart").getContext("2d");
-		var hrChart = new Chart(ctx).Line(createChartData(dataSet), {});
+		var hrChart = new Chart(ctx).Line(createChartData(dataSet), {
+			bezierCurve: false
+		});
 	}
 
 	function createChartData(dataSet){
@@ -65,7 +57,7 @@
 			fDataSet[i] = dataSet[i].temp.english;
 		}
 		for (j=0; j<8; j++){
-			labelSet[j] = (hour + j);
+			labelSet[j] = (hour + (j + 1));
 			if (labelSet[j] > 23){
 				labelSet[j] = labelSet[j] - 24;
 			}

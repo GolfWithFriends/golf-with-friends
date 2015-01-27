@@ -4,25 +4,27 @@
 @import "scorecard.less";
 @import "weather.less";
 @import "home.less";
-@import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,500,700);
 
 html,body {
     height: 100%;
+    margin: 0;
 }
 body {
     min-height: 100%;
 	font-family: 'Open Sans', sans-serif;
-	overflow: hidden;
+	overflow: hidden !important;
 }
 .page-container {
     height: calc(e('100% - 60px'));
     overflow-y: auto;
 }
-
 #course-form {
 	padding-top: 25px;
 	form {
 		border: 1px solid #aaa;
 		padding: 25px;
 	}
+}
+.hidden{
+	display:none;
 }

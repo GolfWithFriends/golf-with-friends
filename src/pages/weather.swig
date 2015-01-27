@@ -5,7 +5,7 @@ title: 'Weather'
 {% extends 'src/layouts/base.swig' %}
 {% block content %}
 <div id="weather-wrap">
-	<table id="weather" class="weather">
+	<table id="weather">
 		<tr>
 			<th colspan="4" class="tableTitle">Weather</th>
 		</tr>
