@@ -61,10 +61,10 @@
 	}
 
 	function drawChart(dataSet){
-		var ctx = document.querySelector("#eight-hr-forecast-chart").getContext("2d");
+		var ctx = document.querySelector("#hourly-forecast-chart").getContext("2d");
 		var hrChart = new Chart(ctx).Line(createChartData(dataSet), {
-			bezierCurve: true
-		});
+			bezierCurve: true,
+			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li>°F<%}%></ul>"		});
 	}
 
 	function createChartData(dataSet){
