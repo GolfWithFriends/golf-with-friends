@@ -58,12 +58,24 @@
 
 	function createChartData(dataSet){
 		var fDataSet = [];
+		var labelSet = [];
+		var date = new Date();
+		var hour = date.getHours();
 		for (i=0; i<8; i++){
 			fDataSet[i] = dataSet[i].temp.english;
 		}
-		var date = new Date();
+		for (j=0; j<8; j++){
+			labelSet[j] = (hour + j);
+			if (labelSet[j] > 23){
+				labelSet[j] = labelSet[j] - 24;
+			}
+			labelSet[j] = labelSet[j] + ':00';
+			if (labelSet[j] == '0:00'){
+				labelSet[j] = '00:00';
+			}
+		}
 		var data = {
-		    labels: ["Now", date.getHours()+1 + ':00', date.getHours()+2 + ':00', date.getHours()+3 + ':00', date.getHours()+4 + ':00', date.getHours()+5 + ':00', date.getHours()+6 + ':00', date.getHours()+7 + ':00'],
+		    labels: labelSet,
 		    datasets: [
 		        {
 		            label: "Hourly Forecast",
@@ -77,7 +89,6 @@
 		        }
 		    ]
 		};
-		//foreach (item in )
 		return data;
 	}
 
