@@ -1,4 +1,4 @@
-(function (model) {
+(function (models) {
 	"use strict";
 
 	function redirectToGame(game) {
