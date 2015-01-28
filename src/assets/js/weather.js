@@ -4,9 +4,10 @@
 	}
 
 	var wundergroundApiKey = "c6b9d3f094b7d82b";
-	var hoursToDisplay = 12;
+	var hoursToDisplay = 10;
 	var refreshInterval = 1000 * 60 * 5; // 300000 milliseconds / 5 minutes
 	var timeoutInterval = 1000 * 60 * 0.5; // 30000  milliseconds / 30 seconds
+	var timeout;
 	var chart;
 
 	function getWeather(zip_code){
@@ -33,26 +34,27 @@
 
 	function getLocationZip(){
 		app.location.getLocation().done(function (loc) {
+			window.clearTimeout(timeout);
 			setRefreshInterval(loc.zip);
 		}).fail(function () {
 			swal({
 				title: "Oh noes!",
 				text: "It looks like we are aren't able to find you right now.",
-				type: "error",
+				type: "warning",
 				showCancelButton: true,
-				confirmButtonColor: "#DD6B55",
-				confirmButtonText: "Try Again",
-				cancelButtonText: "Back to Home",
+				confirmButtonColor: '#e67478',
+				confirmButtonText: "Enter Zip Code",
+				cancelButtonText: "Try Again",
 				closeOnConfirm: false,
 				closeOnCancel: false
 			},
 			function(isConfirm){
 				if (isConfirm) {
-					getLocationZip();
-					window.setTimeout(showManualZipEntryPopup(), timeoutInterval);
+					showManualZipEntryPopup();
 				}
 				else {
-					window.location.href = '/';
+					timeout = window.setTimeout(showManualZipEntryPopup, timeoutInterval);
+					getLocationZip();
 				}
 			});
 		});
@@ -93,39 +95,30 @@
 			chart = new Chart(ctx);
 		}
 		var hrChart = chart.Line(createChartData(dataSet), {
-			bezierCurve: true
+			bezierCurve: true,
+			tooltipTemplate: "<%if (label){%><%=label%> : <%}%><%= value + ' °F' %>",
+			scaleLabel: "<%= value + ' °F' %>"
 		});
 	}
 
 	function createChartData(dataSet){
 		var fDataSet = [];
 		var labelSet = [];
-		var date = new Date();
-		var hour = date.getHours();
 		for (i=0; i<hoursToDisplay; i++){
 			fDataSet[i] = dataSet[i].temp.english;
-		}
-		for (j=0; j<hoursToDisplay; j++){
-			labelSet[j] = (hour + (j + 1));
-			if (labelSet[j] > 23){
-				labelSet[j] = labelSet[j] - 24;
-			}
-			labelSet[j] = labelSet[j] + ':00';
-			if (labelSet[j] == '0:00'){
-				labelSet[j] = '00:00';
-			}
+			labelSet[i] = dataSet[i].FCTTIME.civil;
 		}
 		var data = {
 		    labels: labelSet,
 		    datasets: [
 		        {
 		            label: "Hourly Forecast",
-		            fillColor: "rgba(220,220,220,0.2)",
-		            strokeColor: "rgba(220,220,220,1)",
-		            pointColor: "rgba(200,200,200,1)",
+					fillColor: "rgba(45,100,45,0.1)",
+		            strokeColor: "rgba(45,100,45,0.4)",
+		            pointColor: "#568256", // Color of rgba(45,100,45,0.8) but with no opacity
 		            pointStrokeColor: "#fff",
 		            pointHighlightFill: "#fff",
-		            pointHighlightStroke: "rgba(220,220,220,1)",
+		            pointHighlightStroke: "rgba(45,100,45,1)",
 		            data: fDataSet
 		        }
 		    ]
@@ -147,7 +140,6 @@
 					exists = 0;
 				}
 				var currHourly = jqXHR.responseJSON.hourly_forecast;
-				console.log(currHourly);
 				var curr = [];
 				for (i=0; i<hoursToDisplay; i++){
 					curr[i] = currHourly[i];
@@ -167,12 +159,12 @@
 		swal({
 			html: true,
 			title: "Unable to find you",
-			text: "We can't find you right now.<br />Enter local zip code to get weather.", //<br /><div id='js-fail-enter-zip'>Enter zip code:&nbsp;<input contenteditable='true' type='text' id='js-fail-zip-input' class='form-input' value='65202'/></div>",
+			text: "We can't find you right now.<br />Enter local zip code to get weather.",
 			type: 'error',
 			showCancelButton: true,
 			confirmButtonColor: '#e67478',
 			confirmButtonText: 'Enter Zip Code',
-			cancelButtonText: 'Back to Home',
+			cancelButtonText: 'Home',
 			closeOnCancel: true,
 			closeOnConfirm: true
 		},
@@ -190,10 +182,11 @@
 	app.weather = {};
 	app.weather.init = function(){
 		try{
+			timeout = window.setTimeout(showManualZipEntryPopup, timeoutInterval);
 			getLocationZip();
 		}
 		catch(err){
-			console.log(err);
+			console.log('Error getting location: ' + err);
 			showManualZipEntryPopup();
 		}
 	};

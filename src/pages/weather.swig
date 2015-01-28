@@ -54,7 +54,7 @@ title: 'Weather'
 		<tr>
 			<td>Hourly Forecast</td>
 			<td colspan="3" class="hourly-fcast">
-				<canvas id="hourly-forecast-chart" width="500" height="200"></canvas>
+				<canvas id="hourly-forecast-chart" width="500" height="250"></canvas>
 			</td>
 		</tr>
 	</table>
