@@ -62,11 +62,12 @@
 	}
 
 	function drawChart(dataSet) {
-		var canvas = document.getElementById("hourly-forecast-chart");
-		canvas.width = 500;
-		canvas.height = 200;
-		var ctx = canvas.getContext("2d");
-		var hrChart = new Chart(ctx).Line(createChartData(dataSet), {
+		if (!chart) {
+			var canvas = document.getElementById("hourly-forecast-chart");
+			var ctx = canvas.getContext("2d");
+			chart = new Chart(ctx);
+		}
+		var hrChart = chart.Line(createChartData(dataSet), {
 			bezierCurve: true,
 			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li>°F<%}%></ul>"		});
 	}
