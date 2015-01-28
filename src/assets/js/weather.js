@@ -5,7 +5,8 @@
 
 	var wundergroundApiKey = "c6b9d3f094b7d82b";
 	var hoursToDisplay = 12;
-	var refreshInterval = 300000; // milliseconds
+	var refreshInterval = 1000 * 60 * 5;// 300000 milliseconds
+	var chart;
 
 	function getWeather(zip_code){
 		$.ajax({
@@ -31,7 +32,7 @@
 
 	function getLocationZip(){
 		app.location.getLocation().done(function (loc) {
-			setRefreshInterval(app.location.cache.zip);
+			setRefreshInterval(loc.zip);
 		}).fail(function () {
 			console.log("We were unable to get your location. Sorry");
 		});
@@ -60,8 +61,11 @@
 		});
 	}
 
-	function drawChart(dataSet){
-		var ctx = document.querySelector("#hourly-forecast-chart").getContext("2d");
+	function drawChart(dataSet) {
+		var canvas = document.getElementById("hourly-forecast-chart");
+		canvas.width = 500;
+		canvas.height = 200;
+		var ctx = canvas.getContext("2d");
 		var hrChart = new Chart(ctx).Line(createChartData(dataSet), {
 			bezierCurve: true,
 			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li>°F<%}%></ul>"		});
