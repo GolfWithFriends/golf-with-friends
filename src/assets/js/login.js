@@ -20,7 +20,19 @@
 		return names[Math.floor(Math.random() * names.length)] + " " + names[Math.floor(Math.random() * names.length)];
 	};
 	
-	
+    function handleAuthResponse(promise, route) {
+        $.when(promise)
+            .then(function (authData) {
+
+            // route
+            //routeTo(route);
+
+        }, function (err) {
+            //console.log(err);
+            // pop up error
+        });
+    };
+    
     function thirdPartyLogin(provider) {
         var deferred = $.Deferred();
 
@@ -31,7 +43,7 @@
 
             if (user) {
 				checkDisplayName(user);
-                app.usersDb.child(user.uid).set(user);
+                app.models.fbUserById(user.uid).set(user);
                 deferred.resolve(user);
 				if(window.location.href.indexOf("games") < 0)
 					window.location.href = "/games.html";
