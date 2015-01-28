@@ -102,10 +102,7 @@
 			// try to keep the course location collection synced to the course collection
 			this.collection.once('add', function (m) {
 				var locationId = m.get('state') + '/' + m.get('county');
-				var courseByLocation = new (Backbone.Firebase.Collection.extend({
-					url: app.fbRoot + 'coursesByLocation/' + locationId
-				}))();
-
+				var courseByLocation = new models.fbCourseByLocationCollection(m.get('state'), m.get('county'));
 				courseByLocation.push(m.toJSON());
 			});
 			this.collection.create(c);

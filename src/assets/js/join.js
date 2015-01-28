@@ -1,4 +1,4 @@
-(function () {
+(function (model) {
 	"use strict";
 
 	function redirectToGame(game) {
@@ -67,10 +67,7 @@
 			window.location = "/";
 		}
 
-		var game = new (Backbone.Firebase.Model.extend({
-			url: app.fbRoot + 'games/' + gameId
-		}))();
-
+		var game = new models.fbGameModel(gameId);
 		game.on('sync', function() {
 			var user = app.viewstate.get('user');
 			if (user) {
@@ -88,4 +85,4 @@
 
 		});
 	};
-})();
+})(app.models);

@@ -38,6 +38,7 @@
 
 		<!-- build:js js/all.min.js -->
 		<script type="text/javascript" src="/js/models/courseModels.js"></script>
+		<script type="text/javascript" src="/js/models/gameModels.js"></script>
 
 		<script type="text/javascript" src="/js/chart.js"></script>
 		<script type="text/javascript" src="/js/common.js"></script>

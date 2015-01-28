@@ -1,11 +1,4 @@
-(function () {
-
-	var gameCollection = Backbone.Firebase.Collection.extend({
-		url: app.fbRoot + 'games'
-	});
-	var courseCollection = Backbone.Firebase.Collection.extend({
-		url: app.fbRoot + 'courses'
-	});
+(function (models) {
 
 	var gamesPages;
 	var gameListView = Backbone.View.extend({
@@ -16,10 +9,7 @@
 
 		addGame: function (ev) {
 			gamesPages.changePage('gameform');
-		},
-		
-
-
+		}, 
 		
 		render: function () {
 			var template = $("#game-list-template").html(),
@@ -84,11 +74,9 @@
 		render: function () {
 			var self = this;
 			var template = $("#game-form-template").html();
-			log(self.courses.toJSON());
 			var html = Mustache.render(template, {
 				courses: self.courses.toJSON()
 			});
-			log(self.courses);
 			this.$("form").html(html);
 		},
 
@@ -106,9 +94,7 @@
 			var self = this;
 			if (!self.localCourses) {
 			var loc = self.location;
-				self.localCourses = new (Backbone.Firebase.Collection.extend({
-					url: app.fbRoot + 'coursesByLocation/' + loc.state + '/' + loc.county
-				}))();
+				self.localCourses = new models.fbCourseByLocationCollection(loc.state, loc.county);
 			}
 			self.courses = self.localCourses;
 			self.localCourses.on('sync', _.bind(self.render, self));
@@ -120,7 +106,7 @@
 
 		initialize: function () {
 			var self = this;
-			self.allCourses = new courseCollection();
+			self.allCourses = new models.fbCourseCollection();
 			app.location.getLocation().done(function (loc) {
 				self.location = loc;
 				self.bindLocalCourses();
@@ -137,7 +123,7 @@
 			el: "#game-pages"
 		});
 		gamesPages.changePage('gamelist');
-		var collection = new gameCollection();
+		var collection = new models.fbGameCollection();
 		var listView = new gameListView({
 			el: $("#game-list"),
 			collection: collection
@@ -147,4 +133,4 @@
 			collection: collection
 		})
 	};
-})();
+})(app.models);

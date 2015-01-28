@@ -1,33 +1,6 @@
-(function() {
-	var getParameterByName = function (name) {
-	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	        results = regex.exec(location.search);
-	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-	}
-
-	var game = new(Backbone.Firebase.Model.extend({
-		url: app.fbRoot + 'games/' + getParameterByName('game')
-	}))();
-
-	var playerModel = Backbone.Model.extend({
-		defaults: {
-			gameId: '',
-			scores: _.range(1, 19)
-		},
-		toJSON: function() {
-			return _.extend({}, this.attributes, {
-				cid: this.cid
-			});
-		},
-		toTemplateJSON: function() {
-			var json = this.toJSON();
-
-			json.total = this.get('scores').reduce(function(memo, score) { return memo + score; }, 0);
-
-			return json;
-		}
-	});
+(function(models) {
+	var currentUrl = parseUri(window.location.toString());
+	var game = new models.fbGameModel(currentUrl.queryKey['game']);
 
 	var gameView = Backbone.View.extend({
 		template: $("#scorecard-template").html(),
@@ -108,4 +81,4 @@
 			});
 		});
 	};
-})();
+})(app.models);

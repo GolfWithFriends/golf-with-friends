@@ -34,7 +34,7 @@
 	models.fbCourseByLocationCollection = function (state, county) {
 		return new (Backbone.Firebase.Collection.extend({
 			model: models.courseModel,
-			url: app.fbRoot + 'coursesByLocation/' + locationId
+			url: app.fbRoot + 'coursesByLocation/' + state + '/' + county
 		}))();
 	};
 
