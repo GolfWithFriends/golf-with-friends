@@ -17,8 +17,8 @@
 			
 			//checks the current display name, sets user on db sync 
 			if(!userData.displayName) {
-				var user = new (Backbone.Firebase.Model.extend({url: app.fbRoot + 'users/' + id  }))();
-				
+				var user = new app.models.fbUserById(id);
+
 				user.on('sync', function(){				
 				    userData = user.toJSON()[provider];
 					app.viewstate.set('user', userData).trigger('change:user');
