@@ -33,14 +33,19 @@
     });
 
     var body = $('body');
-    $('#username-link').on('click', function(ev) {
+    $('.nav-expander').on('click', function (ev) {
         ev.preventDefault();
         body.toggleClass('sidebar-opened');
     });
+    
+ //    $('#username-link').on('click', function(ev) {
+ //        ev.preventDefault();
+ //        body.toggleClass('sidebar-opened');
+ //    });
 	
-	$('#signin-link').on('click', function(ev) {
-        ev.preventDefault();
-        body.toggleClass('sidebar-opened');
-		$('#sign-in').show();
-    });
+	// $('#signin-link').on('click', function(ev) {
+ //        ev.preventDefault();
+ //        body.toggleClass('sidebar-opened');
+	// 	$('#sign-in').show();
+ //    });
 })();

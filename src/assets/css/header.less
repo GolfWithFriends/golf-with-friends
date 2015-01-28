@@ -2,7 +2,7 @@
 @green: rgb(45, 100, 45);
 header {
 	background: @green;
-	padding: 15px;
+	padding: 10px;
 	position: relative;
 	font-family: 'Roboto Condensed';
 
@@ -60,6 +60,26 @@ header {
 			display: none;
 		}
 	}
+
+	button.nav-expander {
+		border: 0;
+		background: 0;
+		height: 25px;
+		width: 25px;
+		padding: 0;
+		outline: 0;
+		display: inline-block;
+		vertical-align: text-bottom;
+		margin: 0 20px 0 5px;
+
+		.line {
+			height: 3px;
+			width: 100%;
+			margin-bottom: 5px;
+			background: white;
+			.transition(all .2s linear);
+		}
+	}
 }
 #body-container {
 	height: 100%;
@@ -73,7 +93,7 @@ header {
 
 .side-bar {
 	position: absolute;
-	right: -150px;
+	left: -150px;
 	width: 150px;
 	background: @green;
 	top: 0;
@@ -101,10 +121,20 @@ header {
 }
 body.sidebar-opened {
 	#body-container {
-		.translateX(-150px);
+		.translateX(150px);
 	}
 	.side-bar {
 		box-shadow: -10px 30px 50px #000
+	}
+	.nav-expander {
+		.line-1 {
+			.transform(e('rotate(-45deg) translate(-4px, 0px)'));
+			width: 70%;
+		}
+		.line-3 {
+			.transform(e('rotate(45deg) translate(-4px, 0px)'));
+			width: 70%;
+		}
 	}
 }
 
