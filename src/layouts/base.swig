@@ -4,10 +4,8 @@
 		<meta charset ="UTF-8" >
 		<title>Golf with Friends - {%=title%}</title>
 		<meta name="viewport" content="initial-scale=1">
-		<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css' />
-		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css' />
+		<link href='//fonts.googleapis.com/css?family=Roboto+Condensed|Open+Sans:400,300,600' rel='stylesheet' type='text/css' />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="css/loader.css" type="text/css" />
 		<link rel="Stylesheet" href="css/all.min.css" type="text/css" />
 		<link rel="icon" href="favicon.ico" />
 	</head>
@@ -29,7 +27,6 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
 		<script src="//cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-		
 		<!-- end vendors -->
 
 		<script>
@@ -52,8 +49,6 @@
 		<script type="text/javascript" src="/js/topbar.js"></script>
 		<script type="text/javascript" src="/js/weather.js"></script>
 		<!-- endbuild -->
-
-		<!--<script type="text/javascript" src="js/all.min.js"></script>-->
 
 		{% block scripts %}{% endblock %}
 		<!-- Google Analytics -->

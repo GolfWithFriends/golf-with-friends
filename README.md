@@ -15,6 +15,8 @@ Then run [grunt](http://gruntjs.com/) to assemble the static pages and start a w
 grunt
 ```
 
+Before deploying with divshot, run `grunt production` which will combine all the javascript files into one.
+
 ####[Grunt](http://gruntjs.com/)
 `src/` contains all the files that you'll be editing.  `grunt` assembles those files and puts them in the `dist/` folder which is pushed out to divshot when the `divshot push <CONFIG>` command is run.
 
