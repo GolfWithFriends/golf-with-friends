@@ -38,7 +38,7 @@
 			swal({
 				title: "Oh noes!",
 				text: "It looks like we are aren't able to find you right now.",
-				type: "warning",
+				type: "error",
 				showCancelButton: true,
 				confirmButtonColor: "#DD6B55",
 				confirmButtonText: "Try Again",
@@ -77,7 +77,12 @@
 		$('td.temp').html(currObs.temp_f + " °F<br />(Feels like " + currObs.feelslike_f + " °F)");
 		$('td .wind-string').html(function () {
 			var i = currObs.wind_string.indexOf('Gust');
-			return currObs.wind_string.substring(0, i) + '<br />(' + currObs.wind_string.substring(i) + ')';
+			if (i != -1){
+				return currObs.wind_string.substring(0, i) + '<br />(' + currObs.wind_string.substring(i) + ')';
+			}
+			else{
+				return currObs.wind_string;
+			}
 		});
 	}
 
@@ -142,6 +147,7 @@
 					exists = 0;
 				}
 				var currHourly = jqXHR.responseJSON.hourly_forecast;
+				console.log(currHourly);
 				var curr = [];
 				for (i=0; i<hoursToDisplay; i++){
 					curr[i] = currHourly[i];
@@ -161,20 +167,19 @@
 		swal({
 			html: true,
 			title: "Unable to find you",
-			text: "We can't find you right now.<br /><div id='js-fail-enter-zip'>Enter zip code:&nbsp;<input type='text' id='js-fail-zip-input' class='swal-input' /></div>",
-			type: 'warning',
+			text: "We can't find you right now.<br />Enter local zip code to get weather.", //<br /><div id='js-fail-enter-zip'>Enter zip code:&nbsp;<input contenteditable='true' type='text' id='js-fail-zip-input' class='form-input' value='65202'/></div>",
+			type: 'error',
 			showCancelButton: true,
-			confirmButtonColor: '#DD6B55',
-			confirmButtonText: 'Submit',
+			confirmButtonColor: '#e67478',
+			confirmButtonText: 'Enter Zip Code',
 			cancelButtonText: 'Back to Home',
-			closeOnCancel: false,
-			closeOnConfirm: false
+			closeOnCancel: true,
+			closeOnConfirm: true
 		},
 		function(isConfirm){
 			if (isConfirm){
-				setRefreshInterval(function(){
-					return document.getElementById('js-fail-zip-input').value;
-				});
+				var custZip = prompt("Please enter your zip code", "");
+				setRefreshInterval(custZip);
 			}
 			else{
 				window.location.href = '/';
@@ -188,6 +193,7 @@
 			getLocationZip();
 		}
 		catch(err){
+			console.log(err);
 			showManualZipEntryPopup();
 		}
 	};
