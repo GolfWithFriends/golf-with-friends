@@ -21,6 +21,5 @@
 	<ul>
 		<li><a href="#" class="bt-social" data-provider="google">Google+</a> </li>
 		<li><a href="#" class="bt-social" data-provider="github">GitHub</a></li>
-		<li><a href="#" class="bt-anon">Anon</a></li>
 	</ul>
 </div>

@@ -51,39 +51,6 @@
 		}
 	};
     
-    function handleAuthResponse(promise, route) {
-        $.when(promise)
-            .then(function (authData) {
-
-            // route
-            //routeTo(route);
-
-        }, function (err) {
-            //console.log(err);
-            // pop up error
-        });
-    };
-    
-	function authAnonymously() {
-        var deferred = $.Deferred();
-        app.fb.authAnonymously(function (err, authData) {
-            if (authData) {
-
-				checkDisplayName(authData);
-				app.usersDb.child(authData.uid).set(authData);
-                deferred.resolve(authData);
-				if(window.location.href.indexOf("games") < 0)
-					window.location.href = "/games.html";
-            }
-
-            if (err) {
-                deferred.reject(err);
-            }
-
-        });
-
-        return deferred.promise();
-    }
 	
     function showAlert(opts) {
         //var title = opts.title;
@@ -113,13 +80,6 @@
         handleAuthResponse(socialLoginPromise, 'profile');
 
     });
-	
-	$('.bt-anon').on('click', function (e) {
-		e.preventDefault();
-		handleAuthResponse(authAnonymously(), 'profilex');
-	});
-    
-
 	
 
 })(window.jQuery, window.Firebase, window.Path);
