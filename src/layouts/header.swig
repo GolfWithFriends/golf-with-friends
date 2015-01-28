@@ -12,8 +12,8 @@
 </div>
 <div id="sign-in" class="side-bar">
 	<ul>
-		<li><a href="#" class="bt-social" data-provider="google">Google+</a> </li>
-		<li><a href="#" class="bt-social" data-provider="github">GitHub</a></li>
+		<li><a href="#" class="bt-social" data-provider="google"><i class="fa fa-google-plus-square fa-big">&nbsp;</i>Google+</a> </li>
+		<li><a href="#" class="bt-social" data-provider="github"><i class="fa fa-github fa-big"></i>&nbsp;GitHub</a></li>
 	</ul>
 </div>
 <header>
@@ -23,7 +23,4 @@
 		<div class="line line-3"></div>
 	</button>
 	<h1 class="logo-text"><a href="/">Golf With Friends</a></h1>
-	<!-- <nav>
-
-	</nav> -->
 </header>

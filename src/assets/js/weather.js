@@ -1,11 +1,12 @@
 (function () {
 	if (!$("header").hasClass("authenticated")){
-		$("header .weather").addClass("hidden");
+		$(".weather-link").addClass("hidden");
 	}
 
 	var wundergroundApiKey = "c6b9d3f094b7d82b";
 	var hoursToDisplay = 12;
-	var refreshInterval = 1000 * 60 * 5;// 300000 milliseconds
+	var refreshInterval = 1000 * 60 * 5; // 300000 milliseconds / 5 minutes
+	var timeoutInterval = 1000 * 60 * 0.5; // 30000  milliseconds / 30 seconds
 	var chart;
 
 	function getWeather(zip_code){
@@ -34,7 +35,26 @@
 		app.location.getLocation().done(function (loc) {
 			setRefreshInterval(loc.zip);
 		}).fail(function () {
-			console.log("We were unable to get your location. Sorry");
+			swal({
+				title: "Oh noes!",
+				text: "It looks like we are aren't able to find you right now.",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Try Again",
+				cancelButtonText: "Back to Home",
+				closeOnConfirm: false,
+				closeOnCancel: false
+			},
+			function(isConfirm){
+				if (isConfirm) {
+					getLocationZip();
+					window.setTimeout(showManualZipEntryPopup(), timeoutInterval);
+				}
+				else {
+					window.location.href = '/';
+				}
+			});
 		});
 	}
 
@@ -57,7 +77,7 @@
 		$('td.temp').html(currObs.temp_f + " °F<br />(Feels like " + currObs.feelslike_f + " °F)");
 		$('td .wind-string').html(function () {
 			var i = currObs.wind_string.indexOf('Gust');
-			return currObs.wind_string.substring(0, i) + '<br />' + currObs.wind_string.substring(i);
+			return currObs.wind_string.substring(0, i) + '<br />(' + currObs.wind_string.substring(i) + ')';
 		});
 	}
 
@@ -68,8 +88,8 @@
 			chart = new Chart(ctx);
 		}
 		var hrChart = chart.Line(createChartData(dataSet), {
-			bezierCurve: true,
-			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li>°F<%}%></ul>"		});
+			bezierCurve: true
+		});
 	}
 
 	function createChartData(dataSet){
@@ -137,6 +157,38 @@
 		$(".wind-arrow").css("transform", "rotate(" + windDeg + "deg)");
 	}
 
+	function showManualZipEntryPopup(){
+		swal({
+			html: true,
+			title: "Unable to find you",
+			text: "We can't find you right now.<br /><div id='js-fail-enter-zip'>Enter zip code:&nbsp;<input type='text' id='js-fail-zip-input' class='swal-input' /></div>",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#DD6B55',
+			confirmButtonText: 'Submit',
+			cancelButtonText: 'Back to Home',
+			closeOnCancel: false,
+			closeOnConfirm: false
+		},
+		function(isConfirm){
+			if (isConfirm){
+				setRefreshInterval(function(){
+					return document.getElementById('js-fail-zip-input').value;
+				});
+			}
+			else{
+				window.location.href = '/';
+			}
+		});
+	}
+
 	app.weather = {};
-	app.weather.init = getLocationZip
+	app.weather.init = function(){
+		try{
+			getLocationZip();
+		}
+		catch(err){
+			showManualZipEntryPopup();
+		}
+	};
 })();

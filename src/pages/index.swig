@@ -20,8 +20,8 @@ title: 'Home Page'
 
 {% block scripts %}
 <script>
-	if (!$('header').hasClass('authenticated')){
-		$('#get-started').toggleClass('hidden');
+	if ($('header').hasClass('authenticated')){
+		$('ul.user .sign-in').toggleClass('hidden');
 	}
 </script>
 {% endblock %}

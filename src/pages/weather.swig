@@ -36,7 +36,7 @@ title: 'Weather'
 			<td rowspan="3" colspan="2" id="ch">
 				<div class="crosshair-wrap">
 					<img src="http://i.imgur.com/jBWIh4z.png" class="wind-crosshair" />
-					<img src="http://i.imgur.com/O8s9gss.png" class="wind-arrow" />
+					<img src="http://i.imgur.com/7Qt8uP4.png" class="wind-arrow" />
 				</div>
 			</td>
 		</tr>
