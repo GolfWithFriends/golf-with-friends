@@ -1,8 +1,10 @@
 <div class="side-bar">
+	<h5 class="ul-category" id="sidebar-username">User Name</h5>
 	<ul class="user-actions">
 		<li><a href="games.html">My Games</a></li>
 		<li><a href="#" class="bt-logout" id="logout">Log out</a></li>
 	</ul>
+	<h5 class="ul-category">Other</h5>
 	<ul class="misc-actions">
 		<li class="weather-link"><a href="/weather.html">Weather</a></li>
 		<li><a href="courses.html">Courses</a></li>
@@ -23,9 +25,6 @@
 	</button>
 	<h1 class="logo-text"><a href="/">Golf With Friends</a></h1>
 	<!-- <nav>
-		<ul class="user">
-			<li class="sign-in"><a href="#" id="signin-link">Sign in</a></li>
-			<li class="signed-in"><a href="#" id="username-link">User Name</a></li>
-		</ul>
+
 	</nav> -->
 </header>

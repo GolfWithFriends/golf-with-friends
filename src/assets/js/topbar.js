@@ -4,7 +4,7 @@
     app.viewstate.on('change:user', function() {
         var user = app.viewstate.get('user');
         $("header").addClass("authenticated");
-        $("header #username-link").html(user.displayName);
+        $("#sidebar-username").html(user.displayName);
     });
     
     app.fb.onAuth(function globalOnAuth(authData) {
@@ -37,15 +37,15 @@
         ev.preventDefault();
         body.toggleClass('sidebar-opened');
     });
-    
+
  //    $('#username-link').on('click', function(ev) {
  //        ev.preventDefault();
  //        body.toggleClass('sidebar-opened');
  //    });
 	
-	// $('#signin-link').on('click', function(ev) {
- //        ev.preventDefault();
- //        body.toggleClass('sidebar-opened');
-	// 	$('#sign-in').show();
- //    });
+	$('#signin-link').on('click', function(ev) {
+        ev.preventDefault();
+        body.toggleClass('sidebar-opened');
+		$('#sign-in').show();
+    });
 })();

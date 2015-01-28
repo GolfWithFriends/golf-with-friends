@@ -102,16 +102,23 @@ header {
 	height: 100%;
 	.transition(all .2s linear);
 
+	.ul-category,
 	a {
-	    color: white;
+		color: white;
 	    text-decoration: none;
 	    display: block;
 	    padding: 15px 10px;
 	    border-bottom: 1px solid #ccc;
+	    margin: 0;
+	}
 
-	    &:hover {
-	    	background: rgba(255, 255, 255, 0.2);
-	    }
+	a:hover {
+    	background: rgba(255, 255, 255, 0.2);
+	}
+	.ul-category {
+		background: rgba(0, 0, 0, 0.2);
+		font-weight: 300;
+		font-size: 16px;
 	}
 
 	ul {
