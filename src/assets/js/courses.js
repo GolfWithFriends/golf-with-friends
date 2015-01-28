@@ -1,36 +1,5 @@
-(function() {
+(function (app, models) {
 	var location;
-	var courseModel = Backbone.Model.extend({
-
-		getLocationModel: function () {
-			var lId = this.get('state') + '/' + this.get('county') + '/' + this.get('id');
-			var locationModel = new (Backbone.Firebase.Model.extend({
-				url: app.fbRoot + 'coursesByLocation/' + lId
-			}))();
-			return locationModel;
-		},
-
-		updateLocationModel: function () {
-			var lm = this.getLocationModel();
-			lm.set(this.toJSON());
-		},
-
-		removeFromDB: function () {
-			var locationModel = this.getLocationModel();
-			locationModel.destroy();
-			this.destroy();
-		}
-
-	});
-	var courseCollection = Backbone.Firebase.Collection.extend({
-		model: courseModel,
-		url: app.fbRoot + 'courses'
-	});
-	// var courseByLocationCollection = Backbone.Firebase.Collection.extend({
-	// 	model: courseModel,
-	// 	url: app.fbRoot + 'coursesByLocation'
-	// });
-
 	var courseListView = Backbone.View.extend({
 		template: $("#course-list-template").html(),
 
@@ -65,17 +34,14 @@
 
 		bindByLocation: function (loc) {
 			var locationId = loc.state + '/' + loc.county;
-			this.locationCollection = new (Backbone.Firebase.Collection.extend({
-				model: courseModel,
-				url: app.fbRoot + 'coursesByLocation/' + locationId
-			}))();
+			this.locationCollection = new models.fbCourseByLocationCollection(loc.state, loc.county);
 			this.collection = this.locationCollection;
 			this.collection.on('sync add remove', _.bind(this.render, this));
 			this.render();
 		},
 
 		addCourse: function (ev) {
-			app.courses.form.bind(new courseModel());
+			app.courses.form.bind(new models.courseModel());
 			coursePages.changePage('editCourse');
 		},
 
@@ -176,7 +142,7 @@
 		},
 
 		reset: function() {
-			this.model = new courseModel();
+			this.model = new models.courseModel();
 			this.render();
 		},
 
@@ -184,11 +150,6 @@
 			this.model.set('zip', loc.zip);
 			this.model.set('state', loc.state);
 			this.model.set('county', loc.county);
-
-			// var locationCollection = new courseByLocationCollection();
-			// locationCollection.url += '/' + loc.state + '/' + loc.county;
-			// locationCollection.fetch();
-			// this.locationCollection = locationCollection;
 		},
 
 		bind: function (model) {
@@ -223,7 +184,7 @@
 	});
 
 	var coursePages;
-	var coll = new courseCollection(); 
+	var coll = new models.fbCourseCollection(); 
 	app.courses = {};
 	app.courses.init = function () { 
 		coursePages = new app.pageChanger({
@@ -243,4 +204,4 @@
 			coursePages.changePage("courselist");
 		});
 	};
-})();
+})(app, app.models);

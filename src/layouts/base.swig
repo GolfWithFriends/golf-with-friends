@@ -31,11 +31,14 @@
 
 		<script>
 			var app = {};
+			app.models = {};
 			app.viewstate = new Backbone.Model();
 			app.fbRoot = "https://torid-inferno-1191.firebaseio.com/";
 		</script>
 
 		<!-- build:js js/all.min.js -->
+		<script type="text/javascript" src="/js/models/courseModels.js"></script>
+
 		<script type="text/javascript" src="/js/chart.js"></script>
 		<script type="text/javascript" src="/js/common.js"></script>
 		<script type="text/javascript" src="/js/courses.js"></script>
