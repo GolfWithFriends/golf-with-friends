@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="/css/all.min.css" type="text/css" />
 		<link rel="icon" href="favicon.ico" />
 	</head>
-	<body>
+	<body class="marketing">
 		{% block content %}{% endblock %}
 
 		{% block scripts %}{% endblock %}
