@@ -6,8 +6,8 @@
 		<meta name="viewport" content="initial-scale=1">
 		<link href='//fonts.googleapis.com/css?family=Roboto+Condensed|Open+Sans:400,300,600' rel='stylesheet' type='text/css' />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="/css/all.min.css" type="text/css" />
-		<link rel="icon" href="favicon.ico" />
+		<link rel="stylesheet" href="../css/all.min.css" type="text/css" />
+		<link rel="icon" href="../favicon.ico" />
 	</head>
 	<body>
 		<div id="body-container">
@@ -37,23 +37,23 @@
 		</script>
 
 		<!-- build:js js/all.min.js -->
-		<script type="text/javascript" src="/js/models/courseModels.js"></script>
-		<script type="text/javascript" src="/js/models/gameModels.js"></script>
-        <script type="text/javascript" src="/js/models/userModels.js"></script>
+		<script type="text/javascript" src="../js/models/courseModels.js"></script>
+		<script type="text/javascript" src="../js/models/gameModels.js"></script>
+        <script type="text/javascript" src="../js/models/userModels.js"></script>
 
-		<script type="text/javascript" src="/js/chart.js"></script>
-		<script type="text/javascript" src="/js/common.js"></script>
-		<script type="text/javascript" src="/js/courses.js"></script>
-		<script type="text/javascript" src="/js/firebase.js"></script>
-		<script type="text/javascript" src="/js/game.js"></script>
-		<script type="text/javascript" src="/js/games.js"></script>
-		<script type="text/javascript" src="/js/join.js"></script>
-		<script type="text/javascript" src="/js/location.js"></script>
-		<script type="text/javascript" src="/js/login.js"></script>
-		<script type="text/javascript" src="/js/main.js"></script>
-		<script type="text/javascript" src="/js/sweet-alert.js"></script>
-		<script type="text/javascript" src="/js/topbar.js"></script>
-		<script type="text/javascript" src="/js/weather.js"></script>
+		<script type="text/javascript" src="../js/chart.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/courses.js"></script>
+		<script type="text/javascript" src="../js/firebase.js"></script>
+		<script type="text/javascript" src="../js/game.js"></script>
+		<script type="text/javascript" src="../js/games.js"></script>
+		<script type="text/javascript" src="../js/join.js"></script>
+		<script type="text/javascript" src="../js/location.js"></script>
+		<script type="text/javascript" src="../js/login.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/sweet-alert.js"></script>
+		<script type="text/javascript" src="../js/topbar.js"></script>
+		<script type="text/javascript" src="../js/weather.js"></script>
 		<!-- endbuild -->
 
 		{% block scripts %}{% endblock %}

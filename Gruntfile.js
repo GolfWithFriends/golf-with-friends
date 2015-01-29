@@ -20,16 +20,16 @@ module.exports = function (grunt) {
 			options: {
 				engine: 'swig',
 				swig: {
-			        varControls: ["{%=", "%}"]
+			        varControls: ["{%=", "%}"],
+			        cache: false
 		      	},
 				layout: false,
-				partials: ['src/layouts/**/*.swig'],
-				flatten: true
+				partials: ['src/layouts/**/*.swig']
 			},
 			dist: {
-				files: {
-					'dist/': ["src/pages/**/*.swig" ]
-				}
+				files: [
+	      			{ expand: true, cwd: 'src/pages/', src: '**/*.swig', dest: 'dist/' }
+	      		]
 			}
 		},
 
@@ -112,7 +112,7 @@ module.exports = function (grunt) {
 	/* grunt tasks */
 	grunt.registerTask('default', [
 		'clean:dist', 
-	 	'assemble', 
+	 	'assemble',
 	 	'copy', 
 	 	'less', 
 	 	'connect', 

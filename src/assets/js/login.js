@@ -46,7 +46,7 @@
                 app.models.fbUserById(user.uid).set(user);
                 deferred.resolve(user);
 				if(window.location.href.indexOf("games") < 0)
-					window.location.href = "/games.html";
+					window.location.href = "/app/games.html";
             }
         });
 
