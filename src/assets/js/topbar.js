@@ -27,8 +27,13 @@
 
             app.viewstate.set('user', userData);
         } else {
-			if(window.location.pathname != "/")
-				window.location.href = "/";
+			//if(window.location.pathname != "/")
+			//	window.location.href = "/";
+            if (window.location.pathname.indexOf('app') >= 0 && $('header').hasClass('authenticated')){
+                if (window.location.pathname.indexOf('app/index') < 0){
+                    window.location.href = '/';
+                }
+            }
         }
     });
 
