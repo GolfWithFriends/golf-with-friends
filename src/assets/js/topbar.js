@@ -27,12 +27,9 @@
 
             app.viewstate.set('user', userData);
         } else {
-			//if(window.location.pathname != "/")
-			//	window.location.href = "/";
-            if (window.location.pathname.indexOf('app') >= 0 && $('header').hasClass('authenticated')){
-                if (window.location.pathname.indexOf('app/index') < 0){
-                    window.location.href = '/';
-                }
+            if (window.location.pathname.indexOf('app') >= 0 && $.isEmptyObject(app.viewstate.attributes.user)){
+                if (window.location.pathname.indexOf('app/index') < 0)
+                window.location.href = '/app/index.html';
             }
         }
     });
@@ -42,11 +39,6 @@
         ev.preventDefault();
         body.toggleClass('sidebar-opened');
     });
-
- //    $('#username-link').on('click', function(ev) {
- //        ev.preventDefault();
- //        body.toggleClass('sidebar-opened');
- //    });
 	
 	$('#signin-link').on('click', function(ev) {
         ev.preventDefault();

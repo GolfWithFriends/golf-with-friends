@@ -7,7 +7,6 @@ title: 'Weather'
 <div id="weather-wrap">
 	<div class="loading">
 		<h1>Finding you...</h1>
-		<br />
 		<div class='loader1'>
 		  <div>
 		    <div>
@@ -35,8 +34,13 @@ title: 'Weather'
 			</td>
 			<td rowspan="3" colspan="2" id="ch">
 				<div class="crosshair-wrap">
-					<img src="http://i.imgur.com/jBWIh4z.png" class="wind-crosshair" />
-					<img src="http://i.imgur.com/7Qt8uP4.png" class="wind-arrow" />
+					<img src="http://i.imgur.com/bKebHQK.png" class="wind-circle" />
+					<img src="http://i.imgur.com/KCnJi7S.png" class="wind-arrow" />
+					<div class="wind-mph">
+						<p class="north-n">N</p>
+						<p class="number">--</p>
+						<p class="unit">mph</p>
+					</div>
 				</div>
 			</td>
 		</tr>

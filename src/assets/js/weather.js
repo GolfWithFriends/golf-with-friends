@@ -4,6 +4,7 @@
 	}
 
 	var wundergroundApiKey = "c6b9d3f094b7d82b";
+	var wundergroundHourlyApiKey = "776e797e964493d4";
 	var hoursToDisplay = 10;
 	var refreshInterval = 1000 * 60 * 5; // 300000 milliseconds / 5 minutes
 	var timeoutInterval = 1000 * 60 * 0.5; // 30000  milliseconds / 30 seconds
@@ -45,12 +46,13 @@
 				confirmButtonColor: '#e67478',
 				confirmButtonText: "Enter Zip Code",
 				cancelButtonText: "Try Again",
-				closeOnConfirm: false,
-				closeOnCancel: false
+				closeOnConfirm: true,
+				closeOnCancel: true
 			},
 			function(isConfirm){
 				if (isConfirm) {
-					showManualZipEntryPopup();
+					var custZip = prompt("Please enter your zip code", "");
+					setRefreshInterval(custZip);
 				}
 				else {
 					timeout = window.setTimeout(showManualZipEntryPopup, timeoutInterval);
@@ -77,6 +79,7 @@
 		$('td.deets .latt').html(currObs.observation_location.latitude + '°');
 		$('td.deets .last-updated').html(currObs.observation_time);
 		$('td.temp').html(currObs.temp_f + " °F<br />(Feels like " + currObs.feelslike_f + " °F)");
+		$(".wind-mph .number").html(currObs.wind_mph);
 		$('td .wind-string').html(function () {
 			var i = currObs.wind_string.indexOf('Gust');
 			if (i != -1){
@@ -129,7 +132,7 @@
 	function getHourlyForecastJSON(zc){
 		var JSON = $.ajax({
 			"async" : true,
-			"url" : "http://api.wunderground.com/api/" + wundergroundApiKey + "/hourly/q/" + zc + ".json?callback=?",
+			"url" : "http://api.wunderground.com/api/" + wundergroundHourlyApiKey + "/hourly/q/" + zc + ".json?callback=?",
 			"dataType" : "jsonp",
 			"method" : "GET",
 			"error": function (jqXHR, textStatus, errorThrown) {
