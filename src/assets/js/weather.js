@@ -63,8 +63,6 @@
 	}
 
 	function setRefreshInterval(zc){
-		$('.loading').toggleClass('hidden');
-		$('#weather').toggleClass('hidden');
 		getWeather(zc); // Get weather now, then set interval
 		window.setInterval(function (){
 			getWeather(zc)
@@ -89,6 +87,8 @@
 				return currObs.wind_string;
 			}
 		});
+		$('.loading').toggleClass('hidden');
+		$('#weather').toggleClass('hidden');
 	}
 
 	function drawChart(dataSet) {
