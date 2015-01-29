@@ -30,7 +30,6 @@
             var pName = window.location.pathname;
             if (pName.indexOf('app') >= 0 && $.isEmptyObject(app.viewstate.attributes)){
                 if (pName.indexOf('app') + 3 < pName.length && pName != '/app/' && pName != '/app/index.html'){
-                    console.log(pName);
                     window.location.href = '/app/index.html';
                 }
             }
