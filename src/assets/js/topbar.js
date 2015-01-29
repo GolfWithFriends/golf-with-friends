@@ -27,11 +27,8 @@
 
             app.viewstate.set('user', userData);
         } else {
-            var pName = window.location.pathname;
-            if (pName.indexOf('app') >= 0 && $.isEmptyObject(app.viewstate.attributes)){
-                if (pName.indexOf('app') + 3 < pName.length && pName != '/app/' && pName != '/app/index.html'){
-                    window.location.href = '/app/index.html';
-                }
+            if ($.isEmptyObject(app.viewstate.attributes) && window.location.pathname != '/app/'){
+                window.location.href = '/app/';
             }
         }
     });
