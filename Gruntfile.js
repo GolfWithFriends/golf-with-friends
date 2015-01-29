@@ -1,5 +1,14 @@
 module.exports = function (grunt) {
 
+	var buildSettings = {
+		dev: {
+			production: false
+		},
+		prod: {
+			production: true
+		}
+	};
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
@@ -24,7 +33,10 @@ module.exports = function (grunt) {
 			        cache: false
 		      	},
 				layout: false,
-				partials: ['src/layouts/**/*.swig']
+				partials: ['src/layouts/**/*.swig'],
+
+				/* Custom Variables Passed to the Views */
+				production: '<%= buildSettings.production %>'
 			},
 			dist: {
 				files: [
@@ -68,7 +80,7 @@ module.exports = function (grunt) {
 			},
 			src: {
 				files: ['src/layouts/**/*', 'src/pages/**/*'],
-				tasks: ['assemble']
+				tasks: ['buildSettings:dev', 'assemble']
 			}
 		},
 
@@ -109,8 +121,13 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('assemble');
 
+	grunt.registerTask('buildSettings', 'A task to set variables for the build', function (arg1, arg2) {
+		grunt.config.set('buildSettings', buildSettings[arg1]);
+	});
+
 	/* grunt tasks */
 	grunt.registerTask('default', [
+		'buildSettings:dev',
 		'clean:dist', 
 	 	'assemble',
 	 	'copy', 
@@ -119,7 +136,8 @@ module.exports = function (grunt) {
 	 	'concurrent:dev'
  	]);
 
-	grunt.registerTask('production', [
+	grunt.registerTask('prod', [
+		'buildSettings:prod',
 		'clean:dist', 
 		'assemble', 
 		'useminPrepare', 

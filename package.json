@@ -1,7 +1,7 @@
 {
   "name": "golf-with-friends",
   "version": "0.0.1",
-  "repository": "https://github.com/staticshowdown/ss15-fart-flask.git",
+  "repository": "https://github.com/GolfWithFriends/golf-with-friends.git",
   "description": "A static web application to assist you in scoring golf games",
   "author": "Dustin Smith, Ethan Calvert, Andre Seibert, Connor Kennedy",
   "license": "ISC",
