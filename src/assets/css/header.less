@@ -52,14 +52,6 @@ header {
 	.signed-in {
 		display: none;
 	}
-	&.authenticated {
-		.signed-in {
-			display: inline-block;
-		}
-		.sign-in {
-			display: none;
-		}
-	}
 
 	button.nav-expander {
 		border: 0;
@@ -83,6 +75,11 @@ header {
 			.transition(all .2s linear);
 			.transitionDelay(.25s);
 		}
+	}
+}
+body.authenticated header {
+	.signed-in {
+		display: inline-block;
 	}
 }
 #body-container {

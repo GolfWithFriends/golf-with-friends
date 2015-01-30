@@ -3,7 +3,7 @@
 
     app.viewstate.on('change:user', function() {
         var user = app.viewstate.get('user');
-        $("header").addClass("authenticated");
+        $("body").addClass("authenticated");
         $("#sidebar-username").html(user.displayName);
     });
     

@@ -11,19 +11,15 @@ title: 'Home Page'
 
 <p id="get-started" class="hidden"><strong>To get started - sign in!<i class="fa fa-arrow-right"></i></strong></p>
 
-<ul class="user">
-	<li class="sign-in"><a href="#" id="signin-link">Sign in</a></li>
-</ul>
+<div class="sign-in actions">
+	<button id="signin-link">Sign in</button>
+</div>
 </div>
 
 {% endblock %}
 
 {% block scripts %}
-<script>
-	if ($('header').hasClass('authenticated')){
-		$('ul.user .sign-in').toggleClass('hidden');
-	}
-</script>
+
 {% endblock %}
 
 
