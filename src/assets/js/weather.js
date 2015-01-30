@@ -171,8 +171,7 @@
 			closeOnCancel: true,
 			closeOnConfirm: true,
 			onOutsideClick: (function(){
-				alert("test");
-				//window.location.href = '/app/weather.html'
+				window.location.href = '/app/weather.html'
 			})
 		},
 		function(isConfirm){
