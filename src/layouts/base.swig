@@ -29,11 +29,21 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 		<!-- end vendors -->
 
+		<!-- Load Divshot envrionment variables only if we're on divshot.io -->
+		<script>
+			if (window.location.href.indexOf('divshot.io') >= 0)
+				document.write('<script src="/__/env.js"><\/script>');
+		</script>
+
 		<script>
 			var app = {};
 			app.models = {};
 			app.viewstate = new Backbone.Model();
 			app.fbRoot = "https://torid-inferno-1191.firebaseio.com/";
+			if (window.location.href.indexOf('divshot.io') >= 0)
+				app.divshotConfig = window.__env.CONFIG;
+			else
+				app.divshotConfig = 'development';
 		</script>
 
 		<!-- build:js js/all.min.js -->

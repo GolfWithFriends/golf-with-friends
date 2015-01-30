@@ -7,10 +7,10 @@
       overlayClass = '.sweet-overlay',
       alertTypes   = ['error', 'warning', 'info', 'success'],
       defaultParams = {
-        title: '',
-        text: '',
-        type: null,
-        allowOutsideClick: false,
+        title: 'Lorem ipsum dolor sit amet...',
+        text: 'In commodo aliquam felis. Vivamus eget porttitor ante. Aliquam in bibendum nisl. Praesent eu neque.',
+        type: 'success',
+        allowOutsideClick: true,
         showCancelButton: false,
         closeOnConfirm: true,
         closeOnCancel: true,
@@ -20,10 +20,11 @@
         imageUrl: null,
         imageSize: null,
         timer: null,
-        customClass: '',
+        customClass: 'swal',
         html: false,
         animation: true,
-        allowEscapeKey: true
+        allowEscapeKey: true,
+        onOutsideClick: null
       };
 
 
@@ -287,7 +288,8 @@
           'imageSize',
           'html',
           'animation',
-          'allowEscapeKey'];
+          'allowEscapeKey',
+          'onOutsideClick'];
 
         // It would be nice to just use .forEach here, but IE8... :(
         var numCustoms = availableCustoms.length;
@@ -409,6 +411,8 @@
           outsideClickIsAllowed = modal.getAttribute('data-allow-ouside-click') === 'true';
 
       if (!clickedOnModal && !clickedOnModalChild && modalIsVisible && outsideClickIsAllowed) {
+        if (params.onOutsideClick != null)
+          params.onOutsideClick();
         window.sweetAlert.close();
       }
     };
