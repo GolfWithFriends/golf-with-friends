@@ -1,5 +1,7 @@
 @import "mixins.less";
 @green: rgb(88, 145, 88);
+@greenA: rgba(88, 145, 88, 0.8);
+@red: rgb(160, 55, 55);
 
 button {
 	background: @green;
@@ -17,6 +19,14 @@ button {
 		border: 3px solid @green;
 		background: white;
 		color: @green;
+	}
+
+	&.cancel {
+		background: white;
+		color: @red;
+		&:hover {
+			border-color: @red;
+		}
 	}
 }
 
@@ -42,7 +52,7 @@ input[type="text"] {
 	    bottom: 0;
 	    left: 0;
 	    width: 0;
-	    border-bottom: 2px solid green;
+	    border-bottom: 2px solid @greenA;
 	    .transition(e('width .5s cubic-bezier(0, 1, .5, 1)'));
 	}
 

@@ -82,7 +82,7 @@ title: 'Courses'
 	</table>
 	<div>
 		<button type="submit">Save it</button>
-		<a href="#" class="cancel">Cancel
+		<button href="#" class="cancel">Cancel</button>
 	</div>
 </form>
 </script>

@@ -63,7 +63,7 @@ title: 'My Games'
 </div>
 <div>
 	<button type="submit">Start this Game</button>
-	<a href="#" class="cancel">cancel</a>
+	<button href="#" class="cancel">cancel</button>
 </div>
 </script>
 
