@@ -8,16 +8,18 @@
 @import "loader.less";
 @import "marketing.less"; /* TODO - marketing could be moved into it's own less file */
 
-html,body {
+html {
     height: 100%;
     margin: 0;
 }
 body {
+	margin: 0;
     min-height: 100%;
 	font-family: 'Open Sans', sans-serif;
 }
 body.app {
 	overflow: hidden !important;
+	height: 100%;
 }
 .page-container {
     height: calc(e('100% - 60px'));

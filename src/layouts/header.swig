@@ -22,5 +22,5 @@
 		<div class="line line-2"></div>
 		<div class="line line-3"></div>
 	</button>
-	<h1 class="logo-text"><a href="/">Golf With Friends</a></h1>
+	<h1 class="logo-text"><a href="/app/">Golf With Friends</a></h1>
 </header>
