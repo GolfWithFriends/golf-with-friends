@@ -46,7 +46,7 @@ title: 'My Games'
 		</tbody>
 	</table>
 	</br>
-	<a href="#" class="js-add-game">Add a Game</a>
+	<button class="js-add-game">Add a Game</button>
 </script>
 
 <script type="text/template" id="game-form-template">

@@ -44,7 +44,7 @@ title: 'Courses'
 		</td>
 	{{/courses}}
 	<tr>
-		<td colspan="3"><a href="#" class="js-add-course">Add a Course</a></td>
+		<td colspan="3"><button class="js-add-course">Add a Course</button></td>
 	</tr>
 	</tbody>
 	</table>
@@ -52,16 +52,29 @@ title: 'Courses'
 
 <script type="text/template" id="course-form-template">
 <form>
-	<input type="text" name="name" value="{{name}}" placeholer="Course name" />
-	<br />
+	<div class="input-wrap">
+		<input type="text" name="name" value="{{name}}" placeholder="Course name" />
+		<span class="input-deco"></span>
+	</div>
+	<br /><br />
 	<table class="hole-list">
 		<thead><tr><th>Hole</th><th>Par</th><th>Distance</th><th></th></tr></thead>
 		<tbody>
 		{{#holes}}
 		<tr data-sort="{{sort}}">
 			<td>Hole {{sort}}</td>
-			<td><input type="text" class="js-par" placeholder="par" value="{{par}}" /></td>
-			<td><input type="text" class="js-distance" placeholder="distance" value="{{distance}}" /></td>
+			<td>
+				<div class="input-wrap iw100">
+					<input type="text" class="js-par" placeholder="par" value="{{par}}" />
+					<span class="input-deco"></span>
+				</div>
+			</td>
+			<td>
+				<div class="input-wrap iw100">
+					<input type="text" class="js-distance" placeholder="distance" value="{{distance}}" />
+					<span class="input-deco"></span>
+				</div>
+			</td>
 			<td><a href="#" class="js-remove-hole"><i class="fa fa-remove"></i></a></td>
 		</tr>
 		{{/holes}}
