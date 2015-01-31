@@ -1,5 +1,5 @@
 (function () {
-	if (!$("header").hasClass("authenticated")){
+	if (!$("body").is(".authenticated")){
 		$(".weather-link").addClass("hidden");
 	}
 

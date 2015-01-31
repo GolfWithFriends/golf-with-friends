@@ -1,4 +1,8 @@
 #weather-wrap {
+	h1 {
+		margin: 0;
+	}
+
 	table{
 		text-align: center;
 		vertical-align: middle;
@@ -24,31 +28,31 @@
 			padding: 1em;
 			border: 1px solid #bbb;
 
-			.wind-mph{
+			.wind-mph {
+				margin: auto;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				height: 110px;
 				text-align: center;
-				vertical-align: middle;
 				position: absolute;
-				margin-left: 24.5em;
-				margin-top: 5.6em;
 				color: #3b3b3b;
-				width: 8.5em;
 
-				.north-n{
+				p {
+					margin: 0;
+				}
+				.north-n {
 					position: relative;
-					font-size: 12pt;
-					margin: -2em 0 1em 0;
 					font-size: 14pt;
 					z-index: 10;
 				}
-				.number{
-					position: relative;
+				.number {
 					font-size: 40pt;
-					margin: 0 auto;
 				}
-				.unit{
+				.unit {
 					position: relative;
 					font-size: 14pt;
-					margin: -0.75em auto 0 auto;
 				}
 			}
 
@@ -58,17 +62,19 @@
 			}
 
 			.crosshair-wrap{
-				margin: -9.5em 0 0 -18em;
-				position: center;
+				position: relative;
+				width: 100%;
+				height: 100%;
 			}
 
 			.station{
 				font-weight: bold;
 			}
 
-			img{
-				float: left;
+			img {
 				position: absolute;
+				top: 0;
+				left: 10%;
 
 				.wind-circle{
 					z-index: -9 !important;
@@ -83,83 +89,10 @@
 }
 
 @media screen and (max-width: 750px){
-	#weather-wrap {
+#weather-wrap {
 	table{
-		text-align: center;
-		vertical-align: middle;
-		font-size: 10pt;
-		position: relative;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 2em;
-		color: #343434;
 		width: 100%;
 
-		th{
-			padding: 10px 0;
-
-			&.tableTitle{
-				font-size: 20pt;
-				margin-bottom: -1.75em;
-			}
-		}
-
-		td {
-			padding: 1em;
-			border: 1px solid #bbb;
-
-			.wind-mph{
-				text-align: center;
-				vertical-align: middle;
-				position: absolute;
-				margin-left: 26.4em;
-				margin-top: 5.55em;
-				color: #3b3b3b;
-
-				.north-n{
-					font-size: 12pt;
-					margin: -2em 0 1em 0;
-					font-size: 14pt;
-					z-index: 10;
-				}
-				.number{
-					font-size: 40pt;
-					width: 1.2em;
-					margin: 0;
-				}
-				.unit{
-					font-size: 14pt;
-					margin: -0.75em 0 0 0;
-				}
-			}
-
-			&#ch{
-				width: 275px;
-				height: 275px;
-			}
-
-			.crosshair-wrap{
-				margin: -9.5em 0 0 -18em;
-				position: center;
-			}
-
-			.station{
-				font-weight: bold;
-			}
-
-			img{
-				float: left;
-				position: absolute;
-
-				.wind-circle{
-					z-index: -9 !important;
-				}
-
-				.wind-arrow{
-					z-index: 1 !important;
-				}
-			}
-		}
 	}
 }
 }
