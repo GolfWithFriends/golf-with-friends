@@ -148,3 +148,8 @@
 	-ms-transform-origin:     @x @y;
 	-o-transform-origin:      @x @y;
 }
+.calcHeight (@params) {
+	height: calc(@params);
+	height: -webkit-calc(@params);
+	height: -moz-calc(@params);
+}

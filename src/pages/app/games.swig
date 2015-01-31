@@ -1,5 +1,6 @@
 ---
 title: 'My Games'
+showLoading: true
 ---
 
 {% extends 'src/layouts/base.swig' %}

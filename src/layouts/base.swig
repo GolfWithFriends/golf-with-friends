@@ -14,6 +14,7 @@
 			{% include 'header.swig' %}
 			<div class="page-container">
 				{% block content %}{% endblock %}
+				{% include 'loader.swig' %}
 			</div>
 		</div>
 
@@ -51,6 +52,7 @@
 		<script type="text/javascript" src="/js/models/gameModels.js"></script>
         <script type="text/javascript" src="/js/models/userModels.js"></script>
 
+		<script type="text/javascript" src="/js/loader.js"></script>
 		<script type="text/javascript" src="/js/chart.js"></script>
 		<script type="text/javascript" src="/js/common.js"></script>
 		<script type="text/javascript" src="/js/courses.js"></script>

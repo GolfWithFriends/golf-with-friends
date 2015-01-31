@@ -21,6 +21,7 @@
 				scores: []
 			});
 
+			user.addGame(game.id);
 			game.set('players', players);
 			game.save().done(function () {
 				redirectToGame(game);

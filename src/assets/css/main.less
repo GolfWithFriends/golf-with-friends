@@ -11,6 +11,11 @@
 @import "loader.less";
 @import "marketing.less"; /* TODO - marketing could be moved into it's own less file */
 
+* {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+}
+
 html {
     height: 100%;
     margin: 0;
@@ -25,7 +30,7 @@ body.app {
 	height: 100%;
 }
 .page-container {
-    height: calc(e('100% - 60px'));
+    .calcHeight(~"100% - 50px");
     overflow-y: auto;
 }
 #course-form {

@@ -87,8 +87,7 @@
 				return currObs.wind_string;
 			}
 		});
-		$('.loading').toggleClass('hidden');
-		$('#weather').toggleClass('hidden');
+		app.loader.hide();
 	}
 
 	function drawChart(dataSet) {

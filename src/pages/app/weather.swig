@@ -1,27 +1,12 @@
 ---
 title: 'Weather'
+showLoading: true
 ---
 
 {% extends 'src/layouts/base.swig' %}
 {% block content %}
 <div id="weather-wrap">
-	<div class="loading">
-		<h1>Finding you...</h1>
-		<div class='loader1'>
-		  <div>
-		    <div>
-		      <div>
-		        <div>
-		          <div>
-		            <div></div>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-		</div> <!-- End loader -->
-	</div>
-	<table id="weather" class="hidden">
+	<table id="weather">
 		<tr>
 			<th colspan="4" class="tableTitle"><h1>Weather</h1></th>
 		</tr>
@@ -67,6 +52,7 @@ title: 'Weather'
 
 {% block scripts %}
 <script>
+	app.loader.show('Finding your location...');
 	app.weather.init();
 </script>
 {% endblock %}

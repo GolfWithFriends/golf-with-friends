@@ -1,4 +1,4 @@
-(function (models) {
+(function (app, models) {
 
 	var gamesPages;
 	var gameListView = Backbone.View.extend({
@@ -29,10 +29,10 @@
 			gamesPages.changePage('gameform');
 		}, 
 		
-		render: function () {
+		render: function (ev, ev2, ev3) {
 			var template = $("#game-list-template").html(),
 				uid = app.viewstate.get('user').id,
-				myGames = this.collection.filter(function(model) {
+				myGames = this.collection.filter(function (model) {
 					return _.some(model.get('players'), function (player) { return player.playerId == uid; });
 				});
 
@@ -40,10 +40,10 @@
 				games: new Backbone.Collection(myGames).toJSON()
 			});
 			this.$el.html(html);
+			app.loader.hide();
 		},
 		initialize: function () {
-			this.render();
-			this.collection.on('all', _.bind(this.render, this));
+			this.collection.on('sync add remove', _.debounce(_.bind(this.render, this), 300));
 		}
 	});
 
@@ -75,16 +75,18 @@
 
 			var course = this.courses.get(data.courseId);
 
-			this.collection.create({
+			var newGame = this.collection.create({
 				course: course.toJSON(),
 				date: moment().format("MM.DD.YYYY - h:mm a"),
 				owner: user.id,
 				players: [{
 					playerId: user.id,
-					name: user.displayName,
+					name: user.getDisplayData().displayName,
 					scores: []
 				}]
 			});
+
+			var userGames = user.addGame(newGame.id);
 			gamesPages.changePage('gamelist');
 			return false;
 		},
@@ -151,4 +153,4 @@
 			collection: collection
 		})
 	};
-})(app.models);
+})(app, app.models);
