@@ -1,5 +1,5 @@
-(function () {
-	if (!$("body").is(".authenticated")){
+(function (models) {
+	if ($.isEmptyObject(app.viewstate.attributes)){
 		$(".weather-link").addClass("hidden");
 	}
 
@@ -167,9 +167,12 @@
 			showCancelButton: true,
 			confirmButtonColor: '#e67478',
 			confirmButtonText: 'Enter Zip Code',
-			cancelButtonText: 'Home',
+			cancelButtonText: 'Try Again',
 			closeOnCancel: true,
-			closeOnConfirm: true
+			closeOnConfirm: true,
+			onOutsideClick: (function(){
+				window.location.href = '/app/weather.html'
+			})
 		},
 		function(isConfirm){
 			if (isConfirm){
@@ -177,7 +180,7 @@
 				setRefreshInterval(custZip);
 			}
 			else{
-				window.location.href = '/';
+				window.location.href = '/app/weather.html';
 			}
 		});
 	}
@@ -193,4 +196,4 @@
 			showManualZipEntryPopup();
 		}
 	};
-})();
+})(app.models);

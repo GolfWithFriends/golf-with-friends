@@ -29,31 +29,41 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 		<!-- end vendors -->
 
+		<!-- Load Divshot envrionment variables only if we're on divshot.io -->
+		<script>
+			if (window.location.href.indexOf('divshot.io') >= 0)
+				document.write('<script src="/__/env.js"><\/script>');
+		</script>
+
 		<script>
 			var app = {};
 			app.models = {};
 			app.viewstate = new Backbone.Model();
 			app.fbRoot = "https://torid-inferno-1191.firebaseio.com/";
+			if (window.location.href.indexOf('divshot.io') >= 0)
+				app.divshotConfig = window.__env.CONFIG;
+			else
+				app.divshotConfig = 'development';
 		</script>
 
-		<!-- build:js js/all.min.js -->
-		<script type="text/javascript" src="../js/models/courseModels.js"></script>
-		<script type="text/javascript" src="../js/models/gameModels.js"></script>
-        <script type="text/javascript" src="../js/models/userModels.js"></script>
+		<!-- build:js /js/all.min.js -->
+		<script type="text/javascript" src="/js/models/courseModels.js"></script>
+		<script type="text/javascript" src="/js/models/gameModels.js"></script>
+        <script type="text/javascript" src="/js/models/userModels.js"></script>
 
-		<script type="text/javascript" src="../js/chart.js"></script>
-		<script type="text/javascript" src="../js/common.js"></script>
-		<script type="text/javascript" src="../js/courses.js"></script>
-		<script type="text/javascript" src="../js/firebase.js"></script>
-		<script type="text/javascript" src="../js/game.js"></script>
-		<script type="text/javascript" src="../js/games.js"></script>
-		<script type="text/javascript" src="../js/join.js"></script>
-		<script type="text/javascript" src="../js/location.js"></script>
-		<script type="text/javascript" src="../js/login.js"></script>
-		<script type="text/javascript" src="../js/main.js"></script>
-		<script type="text/javascript" src="../js/sweet-alert.js"></script>
-		<script type="text/javascript" src="../js/topbar.js"></script>
-		<script type="text/javascript" src="../js/weather.js"></script>
+		<script type="text/javascript" src="/js/chart.js"></script>
+		<script type="text/javascript" src="/js/common.js"></script>
+		<script type="text/javascript" src="/js/courses.js"></script>
+		<script type="text/javascript" src="/js/firebase.js"></script>
+		<script type="text/javascript" src="/js/game.js"></script>
+		<script type="text/javascript" src="/js/games.js"></script>
+		<script type="text/javascript" src="/js/join.js"></script>
+		<script type="text/javascript" src="/js/location.js"></script>
+		<script type="text/javascript" src="/js/login.js"></script>
+		<script type="text/javascript" src="/js/main.js"></script>
+		<script type="text/javascript" src="/js/sweet-alert.js"></script>
+		<script type="text/javascript" src="/js/topbar.js"></script>
+		<script type="text/javascript" src="/js/weather.js"></script>
 		<!-- endbuild -->
 
 		{% block scripts %}{% endblock %}
