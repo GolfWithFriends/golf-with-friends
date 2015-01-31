@@ -21,7 +21,7 @@ title: 'My Games'
 
 
 <script type="text/template" id="game-list-template">
-<button class="js-add-game">Add a Game</button>
+<button class="js-add-game gwf-btn">Add a Game</button>
 </br>
 
 <ul class="game-list">
@@ -32,39 +32,13 @@ title: 'My Games'
 			<span class="course">{{course.name}}</span>
 		</div>
 		<div class="button-wrap">
-			<button class="join-link" data-link="http://ss15-fart-flask.divshot.io/join.html?game={{id}}">
+			<button class="gwf-btn join-link" data-link="http://golf-with-friends.divshot.io/join.html?game={{id}}">
 				Join Link
 			</button>
 		</div>
 	</li>
 	{{/games}}
 </ul>
-<!--
-	<table>
-		<thead>
-			<tr>
-				<th>Games</th>
-				<th>Join Link</th>
-			</tr>
-
-		</thead>
-		<tbody>
-	{{#games}}
-	
-	
-	<tr>
-		<td>
-			<a href="game.html?game={{id}}">{{^course}}{{id}}{{/course}}{{#course}}{{date}} @ {{course.name}}{{/course}}</a>
-		</td>
-		<td>
-			http://ss15-fart-flask.divshot.io/join.html?game={{id}}
-		</td>
-
-	</tr>
-	{{/games}}
-		</tbody>
-	</table>
-	-->
 </script>
 
 <script type="text/template" id="game-form-template">
@@ -80,8 +54,8 @@ title: 'My Games'
 	<a href="#" class="js-all">Show me all the courses</a>
 </div>
 <div>
-	<button type="submit">Start this Game</button>
-	<button href="#" class="cancel">cancel</button>
+	<button class="gwf-btn" type="submit">Start this Game</button>
+	<button href="#" class="gwf-btn cancel">cancel</button>
 </div>
 </script>
 

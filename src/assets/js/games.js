@@ -5,7 +5,19 @@
 
 		events: {
 			'click .js-add-game': 'addGame',
-			'click .game-list li': 'gameSelect'
+			'click .game-list li': 'gameSelect',
+			'click .join-link': 'showJoinLink'
+		},
+
+		showJoinLink: function (ev) {
+			var link = $(ev.currentTarget).data('link');
+			swal({
+				title: "Here's the join link!",
+				html: true,
+				text: "Copy this link and send it to your friends:<br /><a href='" + link + "'>" + link + "</a>"
+			});
+			ev.preventDefault();
+			ev.stopPropagation();
 		},
 
 		gameSelect: function (ev) {

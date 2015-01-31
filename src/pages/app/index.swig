@@ -12,7 +12,7 @@ title: 'Home Page'
 <p id="get-started" class="hidden"><strong>To get started - sign in!<i class="fa fa-arrow-right"></i></strong></p>
 
 <div class="sign-in actions">
-	<button id="signin-link">Sign in</button>
+	<button class="gwf-btn" id="signin-link">Sign in</button>
 </div>
 </div>
 
