@@ -5,6 +5,12 @@
 
 		events: {
 			'click .js-add-game': 'addGame',
+			'click .game-list li': 'gameSelect'
+		},
+
+		gameSelect: function (ev) {
+			var li = $(ev.currentTarget);
+			window.location = '/app/game.html?game=' + li.data('gameid');
 		},
 
 		addGame: function (ev) {

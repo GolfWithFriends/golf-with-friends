@@ -21,6 +21,25 @@ title: 'My Games'
 
 
 <script type="text/template" id="game-list-template">
+<button class="js-add-game">Add a Game</button>
+</br>
+
+<ul class="game-list">
+	{{#games}}
+	<li data-gameid="{{id}}">
+		<div class="game-details">
+			<span class="date">{{date}}</span>
+			<span class="course">{{course.name}}</span>
+		</div>
+		<div class="button-wrap">
+			<button class="join-link" data-link="http://ss15-fart-flask.divshot.io/join.html?game={{id}}">
+				Join Link
+			</button>
+		</div>
+	</li>
+	{{/games}}
+</ul>
+<!--
 	<table>
 		<thead>
 			<tr>
@@ -45,8 +64,7 @@ title: 'My Games'
 	{{/games}}
 		</tbody>
 	</table>
-	</br>
-	<button class="js-add-game">Add a Game</button>
+	-->
 </script>
 
 <script type="text/template" id="game-form-template">
