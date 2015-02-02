@@ -3,7 +3,7 @@
 @greenA: rgba(88, 145, 88, 0.8);
 @red: rgb(160, 55, 55);
 
-button.gwf-btn {
+.gwf-btn {
 	background: @green;
 	border: 0;
 	padding: 5px 19px;
@@ -14,6 +14,7 @@ button.gwf-btn {
 	border: 3px solid transparent;
 	.transition(all 0.5s cubic-bezier(0, 1, .5, 1));
 	outline: 0;
+	text-align: center;
 
 	&:hover {
 		border: 3px solid @green;
@@ -27,6 +28,12 @@ button.gwf-btn {
 		&:hover {
 			border-color: @red;
 		}
+	}
+
+	&.icon-left .fa {
+		padding-right: 10px;
+		font-size: 1.5em;
+		vertical-align: middle;
 	}
 }
 

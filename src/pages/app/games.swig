@@ -22,8 +22,12 @@ showLoading: true
 
 
 <script type="text/template" id="game-list-template">
-<button class="js-add-game gwf-btn">Add a Game</button>
-</br>
+<div class="grid">
+	<div class="js-add-game gwf-btn push-1-4 col-1-2 icon-left">
+		<i class="fa fa-plus"></i>
+		Add a Game
+	</div>
+</div>
 
 <ul class="game-list">
 	{{#games}}
