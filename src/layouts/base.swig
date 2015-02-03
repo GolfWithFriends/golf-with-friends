@@ -49,6 +49,8 @@
 
 		<!-- build:js /js/all.min.js -->
 		<script type="text/javascript" src="/js/plugins/tocca.js"></script>
+		<script type="text/javascript" src="/js/plugins/jquery.cselect.js"></script>
+		<script type="text/javascript" src="/js/plugins/sweet-alert.js"></script>
 
 		<script type="text/javascript" src="/js/models/courseModels.js"></script>
 		<script type="text/javascript" src="/js/models/gameModels.js"></script>
@@ -65,7 +67,6 @@
 		<script type="text/javascript" src="/js/location.js"></script>
 		<script type="text/javascript" src="/js/login.js"></script>
 		<script type="text/javascript" src="/js/main.js"></script>
-		<script type="text/javascript" src="/js/sweet-alert.js"></script>
 		<script type="text/javascript" src="/js/topbar.js"></script>
 		<script type="text/javascript" src="/js/weather.js"></script>
 		<!-- endbuild -->

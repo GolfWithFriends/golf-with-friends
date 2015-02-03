@@ -1,0 +1,68 @@
+/*Bare Minimum*/
+.cselect-replacer,
+.cselect-replacer * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+}
+.cselect-replacer,
+.cselect-list,
+.cselect-replacer *,
+.cselect-list * {
+    outline: 0;
+}
+.cselect-replacer {
+    outline: none;
+
+    *zoom: 1;
+    &:before,
+    &:after {
+    display: table;
+    content: "";
+    }
+    &:after {
+    clear: both;
+    }
+}
+.cselect-hidden {
+  display: none;
+}
+.cselect-list {
+  //display: none;
+  list-style: none;
+  
+  position: absolute;
+  left: 0;
+  //width: 100%;
+  
+  margin: 0;
+  padding: 0;
+  margin-top: 7px;
+  cursor: pointer;
+  
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.cselect-display {
+    position: relative;
+    float: left;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+.cselect-button {
+  float: left;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-transition: all .1s linear;
+}
+.cselect-display.cselect-active .cselect-list {
+  display: block;
+}
