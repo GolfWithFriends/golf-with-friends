@@ -1,5 +1,7 @@
 (function (app, models) {
 
+
+	var transitionEndEvent = window.transitionEndEventName();
 	var gamesPages;
 	var gameListView = Backbone.View.extend({
 
@@ -7,14 +9,19 @@
 			'click .js-add-game': 'addGame',
 			'click .game-list li': 'gameSelect',
 			'click .join-link': 'showJoinLink',
-			'swipeleft .game-list li': 'gameSwipe'
+			'swipeleft .game-list li': 'gameSwipe',
+			'swiperight .game-list li': 'gameSwipe'
 		},
 
 		gameSwipe: function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			log(ev, "swipe");
-			return false;
+			this.isSwiping = true;
+			var evType = ev.type.replace("swipe", ""),
+				li = $(ev.currentTarget);
+
+			li.addClass("remove-" + evType);
+			li.one(transitionEndEvent, function() {
+				li.slideUp();
+			});
 		},
 
 		showJoinLink: function (ev) {
@@ -29,6 +36,10 @@
 		},
 
 		gameSelect: function (ev) {
+			if (this.isSwiping) {
+				this.isSwiping = false;
+				return false;
+			}
 			var li = $(ev.currentTarget);
 			window.location = '/app/game.html?game=' + li.data('gameid');
 		},
