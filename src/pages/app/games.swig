@@ -33,7 +33,7 @@ showLoading: true
 	{{#games}}
 	<li data-gameid="{{id}}">
 		<div class="game-details">
-			<span class="date">{{date}}</span>
+			<span class="date">{{dateStr}}</span>
 			<span class="course">{{course.name}}</span>
 		</div>
 		<div class="button-wrap">

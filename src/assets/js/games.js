@@ -6,7 +6,15 @@
 		events: {
 			'click .js-add-game': 'addGame',
 			'click .game-list li': 'gameSelect',
-			'click .join-link': 'showJoinLink'
+			'click .join-link': 'showJoinLink',
+			'swipeleft .game-list li': 'gameSwipe'
+		},
+
+		gameSwipe: function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			log(ev, "swipe");
+			return false;
 		},
 
 		showJoinLink: function (ev) {
@@ -31,19 +39,24 @@
 		
 		render: function (ev, ev2, ev3) {
 			var template = $("#game-list-template").html(),
-				uid = app.viewstate.get('user').id,
-				myGames = this.collection.filter(function (model) {
-					return _.some(model.get('players'), function (player) { return player.playerId == uid; });
-				});
+				uid = this.user.id;
+				// myGames = this.collection.filter(function (model) {
+				// 	return _.some(model.get('players'), function (player) { return player.playerId == uid; });
+				// });
 
+			var self = this;
 			var html = Mustache.render(template, { 
-				games: new Backbone.Collection(myGames).toJSON()
+				games: self.collection.toJSON()
 			});
 			this.$el.html(html);
 			app.loader.hide();
 		},
-		initialize: function () {
+		initialize: function (o) {
+			this.user = o.user;
 			this.collection.on('sync add remove', _.debounce(_.bind(this.render, this), 300));
+			if (this.collection.length) {
+				this.render();
+			}
 		}
 	});
 
@@ -63,7 +76,7 @@
 		formSubmit: function (ev) {
 			var form = $(ev.currentTarget);
 			var data = form.serializeObject();
-			var user = app.viewstate.get('user');
+			var user = this.user;
 			if (!data.courseId) {
 				console.error("Did not select a course");
 				return false;
@@ -74,10 +87,11 @@
 			}
 
 			var course = this.courses.get(data.courseId);
-
-			var newGame = this.collection.create({
+			var now = moment();
+			var newGame = this.allGames.create({
 				course: course.toJSON(),
-				date: moment().format("MM.DD.YYYY - h:mm a"),
+				dateStr: now.format("MM.DD.YYYY - h:mm a"),
+				timestamp: now.unix(),
 				owner: user.id,
 				players: [{
 					playerId: user.id,
@@ -124,9 +138,11 @@
 			$(".js-local").hide();
 		},
 
-		initialize: function () {
+		initialize: function (o) {
 			var self = this;
+			self.user = o.user;
 			self.allCourses = new models.fbCourseCollection();
+			self.allGames = new models.fbGameCollection();
 			app.location.getLocation().done(function (loc) {
 				self.location = loc;
 				self.bindLocalCourses();
@@ -137,20 +153,39 @@
 		}
 	});
 
-	app.games = {};
-	app.games.init = function () {
+	function init (user) {
 		gamesPages = new app.pageChanger({
 			el: "#game-pages"
 		});
 		gamesPages.changePage('gamelist');
-		var collection = new models.fbGameCollection();
+		var collection = new models.gameCollectionByIds(user.get('games') || []);
 		var listView = new gameListView({
 			el: $("#game-list"),
-			collection: collection
+			collection: collection,
+			user: user
 		});
 		var formView = new gameFormView({
 			el: $("#game-form"),
-			collection: collection
+			collection: collection,
+			user: user
 		})
+	}
+
+	app.games = {};
+	app.games.init = function () {
+		var u = app.viewstate.get('user');
+		if (u) {
+			var user = new models.fbUserById(u.id);
+			user.on('sync', function () {
+				init(user);
+			});
+		}
+		else {
+			// this user stuff can be removed when the backbone user object is stored in the viewstate
+			app.viewstate.on('set:user', function(vs, u) {
+				var user = models.fbUserById(u.id);
+				init(user);
+			});
+		}
 	};
 })(app, app.models);

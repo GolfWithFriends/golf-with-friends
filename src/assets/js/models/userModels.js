@@ -12,6 +12,7 @@
             	}
             	games.push(gId);
             	this.set('games', _.uniq(games));
+                this.save();
             },
 
             getDisplayData: function () {
