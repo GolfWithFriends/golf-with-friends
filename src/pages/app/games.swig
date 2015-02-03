@@ -37,7 +37,7 @@ showLoading: true
 			<span class="course">{{course.name}}</span>
 		</div>
 		<div class="button-wrap">
-			<button class="gwf-btn join-link" data-link="http://golf-with-friends.divshot.io/join.html?game={{id}}">
+			<button class="gwf-btn join-link" data-link="http://golf-with-friends.divshot.io/app/join.html?game={{id}}">
 				Join Link
 			</button>
 		</div>
