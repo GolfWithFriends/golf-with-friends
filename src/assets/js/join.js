@@ -2,7 +2,7 @@
 	"use strict";
 
 	function redirectToGame(game) {
-		window.location = "/game.html?game=" + game.id;
+		window.location = "/app/game.html?game=" + game.id;
 	}
 
 	var joinView = Backbone.View.extend({
@@ -15,9 +15,10 @@
 			var user = this.user;
 			var game = this.game;
 			var players = game.get('players');
+			var displayData = user.getDisplayData();
 			players.push({
 				playerId: user.id,
-				name: user.displayName,
+				name: displayData.displayName,
 				scores: []
 			});
 
@@ -70,20 +71,24 @@
 
 		var game = new models.fbGameModel(gameId);
 		game.on('sync', function() {
-			var user = app.viewstate.get('user');
-			if (user) {
+			var u = app.viewstate.get('user');
+			if (u) {
 				var players = game.get('players');
-				var alreadyIn = _.findWhere(players, { playerId: user.id });
+				var alreadyIn = _.findWhere(players, { playerId: u.id });
 				if (alreadyIn) {
 					redirectToGame(game);
 					return;
 				}
-			}
-			jv.bind({
-				user: user,
-				game: game
-			});
 
+				var user = new models.fbUserById(u.id);
+				user.once('sync', function () {
+					jv.bind({
+						user: user,
+						game: game
+					});
+					app.loader.hide();
+				});
+			}
 		});
 	};
 })(app.models);

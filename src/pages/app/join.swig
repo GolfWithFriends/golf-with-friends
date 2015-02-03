@@ -1,5 +1,6 @@
 ---
 title: 'Join'
+showLoading: true
 ---
 
 {% extends 'src/layouts/base.swig' %}
