@@ -2,7 +2,7 @@
 	"use strict";
 
 	function redirectToGame(game) {
-		window.location = "/game.html?game=" + game.id;
+		window.location = "/app/game.html?game=" + game.id;
 	}
 
 	var joinView = Backbone.View.extend({
