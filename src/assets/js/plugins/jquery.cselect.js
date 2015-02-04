@@ -58,15 +58,35 @@ Hopefully in the future
             this._toggleActive(true);
         },
 
+        refresh: function() { 
+            /* Sizing Of Box */
+            var replacer = this.replacer,
+                button = this.button,
+                display = this.display,
+                list = this.list;
+            var maxWidth = replacer.width() - button.outerWidth(true);
+            if (!replacer.is(":visible")) {
+                var replacerclone = replacer.clone().appendTo('body').css('visibility', 'hidden');
+                maxWidth = replacerclone.width() - replacerclone.find('.cselect-button').outerWidth(true);
+                replacerclone.remove();
+            }
+            display.outerWidth(maxWidth);
+
+            if (this.options.sizeToContent && list.width() < display.width()) {
+                display.width(list.width());
+            }
+            /* End of Sizing */
+        },
+
         _toggleActive: function (tog) {
-            this.display.toggleClass(ACTIVE_CLASS, tog);
-            this.button.toggleClass(ACTIVE_CLASS, tog);
+            this.replacer.toggleClass(ACTIVE_CLASS, tog);
+            this.list.toggleClass(ACTIVE_CLASS, tog);
         },
 
         _toggleVisibility: function (ev) {
             ev.stopPropagation();
             ev.preventDefault();
-            var isActive = this.display.hasClass(ACTIVE_CLASS);
+            var isActive = this.replacer.hasClass(ACTIVE_CLASS);
             if (isActive)
                 this.hide();
             else
@@ -75,18 +95,21 @@ Hopefully in the future
 
         positionList: function () {
             var appendTo = $(this.appendTo);
-
-            this.list.position({
-                at: 'left bottom+1',
-                my: 'left top',
-                of: appendTo
+            this.list.css({
+                top: appendTo.offset().top + appendTo.height(),
+                left: appendTo.offset().left
             });
+            // this.list.position({
+            //     at: 'left bottom+1',
+            //     my: 'left top',
+            //     of: appendTo
+            // });
             
             var width = appendTo.outerWidth();
             if(appendTo.is('.cselect-display') && this.list[0].scrollHeight > this.list.height()) {
                 width += this.button.outerWidth(true);
             }
-            this.list.width(width);
+            this.list.outerWidth(width);
 
             var selected = this.list.find("li.cs-selected");
             if (selected.length > 0) {
@@ -174,20 +197,7 @@ Hopefully in the future
             });
             value.text(el.find("option:selected").text());
 
-            /* Sizing Of Box */
-            var maxWidth = replacer.width() - button.outerWidth(true);
-            if (!replacer.is(":visible")) {
-                var replacerclone = replacer.clone().appendTo('body').css('visibility', 'hidden');
-                maxWidth = replacerclone.width() - replacerclone.find('.cselect-button').outerWidth(true);
-                replacerclone.remove();
-            }
-            display.outerWidth(maxWidth);
-
-            if (o.sizeToContent && list.width() < display.width()) {
-                display.width(list.width());
-            }
-            /* End of Sizing */
-
+            this.refresh();
 
             el.on('change.cselect', this.onElChange.bind(this));
             el.on('remove.cselect', this.destroy.bind(this));
@@ -196,7 +206,7 @@ Hopefully in the future
                 btnText.text('').removeClass('cselect-button-inner').addClass(o.buttonClass);
             }
             if (o.animation) {
-                display.addClass('ss-' + o.animation);
+                list.addClass('cs-' + o.animation);
             }
 
             if (o.customClass) {
@@ -240,7 +250,7 @@ Hopefully in the future
         }
         else {
             return this.each(function() {
-                var i = new CS(this, options);
+                var i = new CS(this, options || {});
                 $(this).data("cselect", i);
                 i.init();
             });

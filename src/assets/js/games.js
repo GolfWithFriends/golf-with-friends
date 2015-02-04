@@ -122,7 +122,12 @@
 			var html = Mustache.render(template, {
 				courses: self.courses.toJSON()
 			});
+			this.$("select").cselect("destroy");
 			this.$("form").html(html);
+			this.$("select").cselect({
+				sizeToContent: true,
+				buttonClass: 'fa fa-chevron-down',
+			});
 		},
 
 		bindAllCourses: function () {
