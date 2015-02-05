@@ -1,5 +1,11 @@
 (function (models) {
 
+	models.fbCourseModel = function (id) {
+		return new (Backbone.Firebase.Model.extend({
+			url: app.fbRoot + 'courses/' + id
+		}))();
+	};
+
 	models.fbCourseByLocation = function (state, county, id) {
 		return new (Backbone.Firebase.Model.extend({
 			url: app.fbRoot + 'coursesByLocation/' + state + '/' + county + '/' + id
@@ -37,5 +43,7 @@
 			url: app.fbRoot + 'coursesByLocation/' + state + '/' + county
 		}))();
 	};
+
+
 
 })(app.models);

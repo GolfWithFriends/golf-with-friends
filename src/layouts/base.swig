@@ -28,6 +28,7 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
 		<script src="//cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.4.0/annyang.min.js"></script>
 		<!-- end vendors -->
 
 		<!-- Load Divshot envrionment variables only if we're on divshot.io -->
@@ -63,6 +64,7 @@
 		<script type="text/javascript" src="/js/firebase.js"></script>
 		<script type="text/javascript" src="/js/game.js"></script>
 		<script type="text/javascript" src="/js/games.js"></script>
+		<script type="text/javascript" src="/js/hole.js"></script>
 		<script type="text/javascript" src="/js/join.js"></script>
 		<script type="text/javascript" src="/js/location.js"></script>
 		<script type="text/javascript" src="/js/login.js"></script>
