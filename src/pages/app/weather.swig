@@ -46,7 +46,7 @@ showLoading: true
 			</td>
 		</tr>
 		<tr>
-			<td id="attribution" colspan="4" class="borderless">Weather provided by Weather Underground</td>
+			<td id="attribution" colspan="4" class="borderless"><small>Weather provided by Weather Underground</small></td>
 		</tr>
 	</table>
 </div>
