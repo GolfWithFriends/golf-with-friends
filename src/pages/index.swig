@@ -1,5 +1,5 @@
 ---
-title: 'Home Pagasdfe'
+title: 'Home Page'
 ---
 
 {% extends 'src/layouts/wwwBase.swig' %}

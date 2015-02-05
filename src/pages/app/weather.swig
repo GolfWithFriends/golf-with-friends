@@ -36,7 +36,6 @@ showLoading: true
 		<tr>
 			<td>Wind</td>
 			<td>
-				<!--<p><span class="wind-speed">-</span> out of the <span class="wind-dir">-</span></p>-->
 				<p class="wind-string">--</p>
 			</td>
 		</tr>
@@ -45,6 +44,9 @@ showLoading: true
 			<td colspan="3" class="hourly-fcast">
 				<canvas id="hourly-forecast-chart" width="500" height="250"></canvas>
 			</td>
+		</tr>
+		<tr>
+			<td id="attribution" colspan="4" class="borderless">Weather provided by Weather Underground</td>
 		</tr>
 	</table>
 </div>

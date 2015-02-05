@@ -98,7 +98,8 @@
 		}
 		var hrChart = chart.Line(createChartData(dataSet), {
 			bezierCurve: true,
-			tooltipTemplate: "<%if (label){%><%=label%> : <%}%><%= value + ' °F' %>",
+			tooltipTemplate: "<% if (label){ %><%= label %> : <% } %><%= value + ' °F' %>",
+			multiTooltipTemplate: "<%= value + ' °F   ' + datasetLabel %>",
 			scaleLabel: "<%= value + ' °F' %>"
 		});
 	}
@@ -106,18 +107,30 @@
 	function createChartData(dataSet){
 		var fDataSet = [];
 		var labelSet = [];
+		var flDataSet = [];
 		for (i=0; i<hoursToDisplay; i++){
 			fDataSet[i] = dataSet[i].temp.english;
 			labelSet[i] = dataSet[i].FCTTIME.civil;
+			flDataSet[i] = dataSet[i].feelslike.english;
 		}
 		var data = {
 		    labels: labelSet,
 		    datasets: [
+		    	/*{
+		            label: "Feels Like",
+					fillColor: "rgba(100,45,100,0.1)",
+		            strokeColor: "rgba(100,45,100,0.4)",
+		            pointColor: "#ff9b08",
+		            pointStrokeColor: "#fff",
+		            pointHighlightFill: "#fff",
+		            pointHighlightStroke: "rgba(100,45,100,1)",
+		            data: flDataSet
+		        }*/
 		        {
 		            label: "Hourly Forecast",
 					fillColor: "rgba(45,100,45,0.1)",
 		            strokeColor: "rgba(45,100,45,0.4)",
-		            pointColor: "#568256", // Color of rgba(45,100,45,0.8) but with no opacity
+		            pointColor: "rgba(45,100,45,0.8)", // Color of rgba(45,100,45,0.8) but with no opacity
 		            pointStrokeColor: "#fff",
 		            pointHighlightFill: "#fff",
 		            pointHighlightStroke: "rgba(45,100,45,1)",
