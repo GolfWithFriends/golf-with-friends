@@ -25,9 +25,8 @@
 					exists = 0;
 				}
 				var currObs = jqXHR.responseJSON.current_observation;
-				turnArrow(currObs.wind_degrees);
-				updateView(currObs);
 				getHourlyForecastJSON(zip_code);
+				updateView(currObs);
 			}
 		});
 		console.log("Weather updated\n");
@@ -87,6 +86,12 @@
 				return currObs.wind_string;
 			}
 		});
+		if (currObs.wind_mph <= 0){
+			$('.wind-arrow').css('visibility', 'hidden');
+		}
+		else{
+			turnArrow(currObs.wind_degrees);
+		}
 		app.loader.hide();
 	}
 
@@ -98,30 +103,43 @@
 		}
 		var hrChart = chart.Line(createChartData(dataSet), {
 			bezierCurve: true,
-			tooltipTemplate: "<%if (label){%><%=label%> : <%}%><%= value + ' °F' %>",
+			tooltipTemplate: "<% if (label){ %><%= label %> : <% } %><%= value + ' °F' %>",
+			multiTooltipTemplate: "<%= value + ' °F   ' + datasetLabel %>",
 			scaleLabel: "<%= value + ' °F' %>"
 		});
 	}
 
 	function createChartData(dataSet){
-		var fDataSet = [];
+		var tDataSet = [];
 		var labelSet = [];
+		var flDataSet = [];
 		for (i=0; i<hoursToDisplay; i++){
-			fDataSet[i] = dataSet[i].temp.english;
+			tDataSet[i] = dataSet[i].temp.english;
 			labelSet[i] = dataSet[i].FCTTIME.civil;
+			flDataSet[i] = dataSet[i].feelslike.english;
 		}
 		var data = {
 		    labels: labelSet,
 		    datasets: [
-		        {
-		            label: "Hourly Forecast",
+		    	{
+		            label: "Temperature",
 					fillColor: "rgba(45,100,45,0.1)",
 		            strokeColor: "rgba(45,100,45,0.4)",
 		            pointColor: "#568256", // Color of rgba(45,100,45,0.8) but with no opacity
 		            pointStrokeColor: "#fff",
+		            pointHighlightFill: "#aac0aa", // Color of rgba(45,100,45,0.4) but with no opacity",
+		            pointHighlightStroke: "rgba(45,100,45,1)",
+		            data: tDataSet
+		        },
+		    	{
+		            label: "Feels Like",
+					fillColor: "rgba(45,100,45,0.025)",
+		            strokeColor: "rgba(45,100,45,0.2)",
+		            pointColor: "rgba(45,100,45,0.4)",
+		            pointStrokeColor: "#fff",
 		            pointHighlightFill: "#fff",
 		            pointHighlightStroke: "rgba(45,100,45,1)",
-		            data: fDataSet
+		            data: flDataSet
 		        }
 		    ]
 		};
