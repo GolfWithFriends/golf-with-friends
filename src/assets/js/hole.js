@@ -1,33 +1,22 @@
 (function (app, models) {
 
-	if (annyang) {
-		var speechCommands = {
-			":v": function(v) {
-				log(v);
-			}
-		}
-		annyang.addCommands(speechCommands);
-	}
 
 	var holeView = Backbone.View.extend({
 		template: $("#hole-template").html(),
 
 		events: {
-			'mousedown .js-listen': 'startListening',
-			'mouseup .js-listen': 'stopListening'
+			'click .js-listen': 'startListening',
+			'click .js-stop-listen': 'stopListening'
 		},
 
 		startListening: function() {
-			annyang.abort();
 			annyang.start({ autoRestart: false });
-			this.hasBeenStarted = true;
+			this.$sbw.toggleClass("listening");
 		},
 
 		stopListening: function () {
-			if (this.hasBeenStarted) {
-				annyang.abort();
-			}
-			this.hasBeenStarted = false;
+			annyang.abort();
+			this.$sbw.toggleClass("listening");
 		},
 
 		render: function () {
@@ -39,7 +28,57 @@
 			};
 			var html = Mustache.render(this.template, data);
 			this.$el.html(html);
+			this.$sbw = this.$(".speech-button-wrap");
 			app.loader.hide();
+		},
+
+		setScore: function (score) {
+			this.$("input").val(score);
+		},
+
+		onSayScore: function (v) {
+			var score = '';
+			var hole = this.hole;
+			switch (v) {
+				case "birdy":
+					score = hole.par - 1;
+					break;
+				case "par":
+					score = hole.par;
+					break;
+				case "bogey":
+					score = hole.par + 1;
+					break;
+				default:
+					score = v;
+					break;
+			}
+
+			if (!isNaN(score)) {
+				this.setScore(score);
+			}
+			this.stopListening();
+		},
+
+		initAnnyang: function() {
+			var speechCommands = {
+				":v": _.bind(this.onSayScore, this)
+			}
+			annyang.addCommands(speechCommands);
+			/*
+			annyang.addCallback("start", function (r) {
+				log('start', r);
+			});
+			annyang.addCallback("result", function (r) {
+				log('result', r);
+			});
+			annyang.addCallback("resultMatch", function (r) {
+				log('resultMath', r);
+			});
+			annyang.addCallback("end", function (r) {
+				log('end', r);
+			});
+			*/
 		},
 
 		initialize: function (o) {
@@ -48,6 +87,9 @@
 			this.course = o.course;
 			this.hole = o.course.get('holes')[this.holeNum];
 			this.render();
+			if (annyang) {
+				this.initAnnyang();
+			}
 		}
 	});
 

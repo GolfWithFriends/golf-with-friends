@@ -28,7 +28,7 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
 		<script src="//cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.4.0/annyang.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.4.0/annyang.js"></script>
 		<!-- end vendors -->
 
 		<!-- Load Divshot envrionment variables only if we're on divshot.io -->

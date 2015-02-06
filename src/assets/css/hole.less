@@ -28,4 +28,21 @@
 		font-size: 150px;
 		text-align: center;
 	}
+
+	.speech-button-wrap {
+		margin-top: 25px;
+
+		.js-stop-listen {
+			display: none;
+		}
+
+		&.listening {
+			.js-stop-listen {
+				display: inline-block;
+			}
+			.js-listen {
+				display: none;
+			}
+		}
+	}
 }

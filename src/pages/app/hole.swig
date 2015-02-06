@@ -24,7 +24,10 @@ showLoading: true
 			<div class="input-wrap">
 				<input type="text" />
 			</div>
-			<button class="js-listen gwf-btn">Listen</button>
+			<div class="speech-button-wrap">
+				<button class="js-listen gwf-btn">Start Listening</button>
+				<button class="js-stop-listen gwf-btn gwf-btn-red">Stop Listening</button>
+			</div>
 		</div>
 	</script>
 
