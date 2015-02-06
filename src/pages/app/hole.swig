@@ -22,7 +22,7 @@ showLoading: true
 		<div class="player-score">
 			<label>Score</label>
 			<div class="input-wrap">
-				<input type="text" />
+				<input type="text" value="{{score}}" />
 			</div>
 			<div class="speech-button-wrap">
 				<button class="js-listen gwf-btn">Start Listening</button>

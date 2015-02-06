@@ -6,7 +6,19 @@
 
 		events: {
 			'click .js-listen': 'startListening',
-			'click .js-stop-listen': 'stopListening'
+			'click .js-stop-listen': 'stopListening',
+			'focus input': 'inputFocus',
+			'change input': 'inputChange'
+		},
+
+		inputChange: function (ev) {
+			var val = $(ev.currentTarget).val();
+			this.player.scores[this.holeNum] = parseInt(val, 10);
+			this.game.save();
+		},
+
+		inputFocus: function (ev) {
+			$(ev.currentTarget).select();
 		},
 
 		startListening: function() {
@@ -24,7 +36,8 @@
 			var data = {
 				holeNum: self.holeNum,
 				totalHoles: self.course.get('holes').length,
-				hole: self.hole
+				hole: self.hole,
+				score: self.player.scores[self.holeNum]
 			};
 			var html = Mustache.render(this.template, data);
 			this.$el.html(html);
@@ -33,7 +46,7 @@
 		},
 
 		setScore: function (score) {
-			this.$("input").val(score);
+			this.$("input").val(score).trigger('change');
 		},
 
 		onSayScore: function (v) {
@@ -86,6 +99,8 @@
 			this.holeNum = o.holeNum;
 			this.course = o.course;
 			this.hole = o.course.get('holes')[this.holeNum];
+			var currentPlayer = _.findWhere(this.game.get('players'), { playerId: app.viewstate.get('user').id });
+			this.player = currentPlayer;
 			this.render();
 			if (annyang) {
 				this.initAnnyang();
