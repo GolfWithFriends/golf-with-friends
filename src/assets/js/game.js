@@ -18,7 +18,7 @@
 
 			if (!!score && _.isNumber(parseInt(score)) && !_.isNaN(parseInt(score))) {
 				thisPlayer.scores[hole - 1] = parseInt(score);
-				game.save();
+				this.model.save();
 			}
 		},
 
