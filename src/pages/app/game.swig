@@ -9,6 +9,9 @@ title: 'Game'
 	<table class="scorecard">
 	</table>
 </div>
+<div>
+	<a id="lnk-hole-view" href="/app/hole.html?">Hole view</a>
+</div>
 
 
 <script type="text/template" id="scorecard-template">

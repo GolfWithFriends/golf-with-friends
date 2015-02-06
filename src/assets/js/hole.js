@@ -33,11 +33,20 @@
 
 		render: function () {
 			var self = this;
+			var courseHoles = self.course.get('holes');
+			var hasNext = self.holeNum !== (courseHoles.length - 1);
+			var hasPrev = self.holeNum !== 0;
 			var data = {
 				holeNum: self.holeNum,
-				totalHoles: self.course.get('holes').length,
+				holeDisplay: self.holeNum + 1,
+				totalHoles: courseHoles.length,
 				hole: self.hole,
-				score: self.player.scores[self.holeNum]
+				game: self.game,
+				score: self.player.scores[self.holeNum],
+				hasPrev: hasPrev,
+				hasNext: hasNext,
+				nextHole: self.holeNum + 1,
+				prevHole: self.holeNum - 1
 			};
 			var html = Mustache.render(this.template, data);
 			this.$el.html(html);
@@ -112,7 +121,7 @@
 	app.hole.init = function () {
 		var url = parseUri(window.location.toString());
 		var gameId = url.queryKey['game'];
-		var holeNum = url.queryKey['hole'];
+		var holeNum = parseInt(url.queryKey['hole'], 10);
 
 		var currentHoleView;
 		var game = new models.fbGameModel(gameId);

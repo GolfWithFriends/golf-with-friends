@@ -1,6 +1,4 @@
 (function(models) {
-	var currentUrl = parseUri(window.location.toString());
-	var game = new models.fbGameModel(currentUrl.queryKey['game']);
 
 	var gameView = Backbone.View.extend({
 		template: $("#scorecard-template").html(),
@@ -58,7 +56,6 @@
 
 			_.each(players, function (player) {
 
-				log(player);
 				if (!player.scores || player.scores.length == 0) {
 					self.addScoresToPlayer(player);
 				}
@@ -73,6 +70,13 @@
 	app.scorecard = {};
 
 	app.scorecard.init = function() {
+		var currentUrl = parseUri(window.location.toString());
+		var gameId = currentUrl.queryKey['game'];
+		
+		var holeViewHref = $("#lnk-hole-view").attr("href");
+		$("#lnk-hole-view").attr("href", holeViewHref + "game=" + gameId + "&hole=0");
+
+		var game = new models.fbGameModel(gameId);
 		game.once('sync', function () {
 			app.scorecard.game = game;
 			app.scorecard.view = new gameView({
