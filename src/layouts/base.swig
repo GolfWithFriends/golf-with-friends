@@ -84,6 +84,11 @@
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 			ga('create', 'UA-59004744-1', 'auto');ga('send', 'pageview');
 		</script>
+		<script>
+			if ((app.divshotConfig === "production") && (window.location.protocol == "http:")) {
+				window.location.protocol = "https:";
+			}
+		</script>
 		{% else %}
 			<script>console.log('%c ===== DEVELOPMENT MODE ===== ', 'background: #222; color: #bada55');</script>
 		{% endif %}
