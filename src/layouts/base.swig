@@ -57,6 +57,7 @@
 		<script type="text/javascript" src="/js/models/gameModels.js"></script>
         <script type="text/javascript" src="/js/models/userModels.js"></script>
 
+		<script type="text/javascript" src="/js/speech2score.js"></script>
 		<script type="text/javascript" src="/js/loader.js"></script>
 		<script type="text/javascript" src="/js/chart.js"></script>
 		<script type="text/javascript" src="/js/common.js"></script>

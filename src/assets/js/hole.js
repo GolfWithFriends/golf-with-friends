@@ -57,23 +57,8 @@
 		},
 
 		onSayScore: function (v) {
-			var score = '';
 			var hole = this.hole;
-			switch (v) {
-				case "birdy":
-					score = hole.par - 1;
-					break;
-				case "par":
-					score = hole.par;
-					break;
-				case "bogey":
-					score = hole.par + 1;
-					break;
-				default:
-					score = v;
-					break;
-			}
-
+			var score = app.speech2score.getScore(v, hole.par);
 			if (!isNaN(score)) {
 				this.setScore(score);
 			}
