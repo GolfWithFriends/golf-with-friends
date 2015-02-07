@@ -171,7 +171,6 @@
 
 		updateNav: function () {
 			var self = this;
-			log(self.currentHoles);
 			var hasNext = self.currentHoleNum < (self.totalHoles - 1);
 			var hasPrev = self.currentHoleNum > 0;
 			this.$nav.find(".js-prev-hole").toggle(hasPrev);
