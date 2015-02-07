@@ -4,6 +4,7 @@
 		var score;
 		switch (speech) {
 			case "birdie":
+			case "birdy":
 			case "thirty":
 			case "30":
 			case 30:
@@ -32,7 +33,7 @@
 			case "free":
 				score = 3;
 			default:
-				score = v;
+				score = speech;
 				break;
 		}
 

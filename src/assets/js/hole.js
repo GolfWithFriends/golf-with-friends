@@ -62,6 +62,9 @@
 			if (!isNaN(score)) {
 				this.setScore(score);
 			}
+			else {
+				log("SPEECH INPUT - didn't recognize", v);
+			}
 			this.stopListening();
 		},
 
@@ -175,6 +178,9 @@
 			var thisPlayer = _.findWhere(this.game.get('players'), {
 				playerId: thisUser.id
 			});
+			if (!thisPlayer.scores || thisPlayer.scores.length === 0) {
+				thisPlayer.scores = _.map(_.range(18), function(){ return ''; });
+			}
 			return {
 				hole: hole,
 				holeNum: holeNum,
