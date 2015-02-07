@@ -1,3 +1,25 @@
+.hole-pager {
+	position: relative;
+
+	.hole-view {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		.transition(transform .5s linear);
+
+		&.prev {
+			.translateX(-100%);
+		}
+		&.next {
+			.translateX(200%);
+		}
+	}
+
+	.hole-view-inner {
+		position: relative;
+	}
+}
 .hole-num {
 	background: rgb(208, 226, 208);
 	padding: 5px;
@@ -48,6 +70,11 @@
 }
 
 .hole-nav {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 5px;
 	.js-next-hole {
 		display: block;
 		float: right;
