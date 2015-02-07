@@ -80,25 +80,33 @@
 			this.stopListening();
 		},
 
-		initAnnyang: function() {
-			var speechCommands = {
-				":v": _.bind(this.onSayScore, this)
+		bindAnnyang: function () {
+			if (annyang) {
+				var speechCommands = {
+					":v": _.bind(this.onSayScore, this)
+				}
+				annyang.addCommands(speechCommands);
+				/*
+				annyang.addCallback("start", function (r) {
+					log('start', r);
+				});
+				annyang.addCallback("result", function (r) {
+					log('result', r);
+				});
+				annyang.addCallback("resultMatch", function (r) {
+					log('resultMath', r);
+				});
+				annyang.addCallback("end", function (r) {
+					log('end', r);
+				});
+				*/
 			}
-			annyang.addCommands(speechCommands);
-			/*
-			annyang.addCallback("start", function (r) {
-				log('start', r);
-			});
-			annyang.addCallback("result", function (r) {
-				log('result', r);
-			});
-			annyang.addCallback("resultMatch", function (r) {
-				log('resultMath', r);
-			});
-			annyang.addCallback("end", function (r) {
-				log('end', r);
-			});
-			*/
+		},
+
+		unbindAnnyang: function () {
+			if (annyang) {
+				annyang.removeCommands(':v');				
+			}
 		},
 
 		initialize: function (o) {
@@ -115,9 +123,6 @@
 			this.game = o.game;
 			this.$pager = o.pager;
 			this.render();
-			if (annyang) {
-				this.initAnnyang();
-			}
 		}
 	});
 
@@ -139,7 +144,9 @@
 
 			this.currentHoleNum--;
 			this.nextHoleView = this.currentHoleView;
+			this.nextHoleView.unbindAnnyang();
 			this.currentHoleView = this.prevHoleView;
+			this.currentHoleView.bindAnnyang();
 			this.renderPrev();
 			this.updateNav();
 		},
@@ -155,7 +162,9 @@
 
 			this.currentHoleNum++;
 			this.prevHoleView = this.currentHoleView;
+			this.prevHoleView.unbindAnnyang();
 			this.currentHoleView = this.nextHoleView;
+			this.currentHoleView.bindAnnyang();
 			this.renderNext();
 			this.updateNav();
 		},
@@ -202,6 +211,7 @@
 				pager: self.$el
 			});
 			this.currentHoleView = new holeView(viewData);
+			this.currentHoleView.bindAnnyang();
 			app.loader.hide();
 		},
 
