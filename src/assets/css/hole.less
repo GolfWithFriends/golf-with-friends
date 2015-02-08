@@ -76,17 +76,47 @@
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	padding: 5px;
 	z-index: 1;
+	height: 50px;
+	border-top: 1px solid #eee;
 
-	.js-next-hole {
-		display: block;
-		float: right;
-		padding: 0 25px;
+	.nav-hole {
+	    display: block;
+	    float: left;
+	    border: 0;
+	    background: none;
+	    cursor: pointer;
+	    font-size: 1em;
+	    font-family: 'Open Sans', sans-serif;
+	    border-right: 1px solid #ddd;
+	    margin: 0;
+	    padding: 15px;
+
+	    &.current {
+	    	background: @green;
+	    	color: white;
+	    }
 	}
+
+	.nav-scroll {
+		overflow-x: auto;
+		margin: 0 85px;
+	}
+
+	.js-next-hole,
 	.js-prev-hole {
 		display: block;
-		float: left;
 		padding: 0 25px;
+		position: absolute;
+		top: 0;
+		height: 100%;
+		z-index: 1;
+	}
+
+	.js-next-hole {
+		right: 0;
+	}
+	.js-prev-hole {
+		left: 0;
 	}
 }

@@ -7,14 +7,23 @@ showLoading: true
 {% block content %}
 	<div id="hole-pager" class="hole-pager">
 
-		<div class="hole-nav">
-			<button class="js-prev-hole gwf-btn">Prev</button>
-			<button class="js-next-hole gwf-btn">Next</button>
-		</div>
+		<div class="hole-nav"></div>
 	</div>
 
+	<script type="text/template" id="nav-template">
+		<button class="js-prev-hole gwf-btn">Prev</button>
+		<div class="nav-scroll">
+			<div class="nav-inner">
+				{{#holes}}
+				<button class="nav-hole" data-hole="{{.}}">{{.}}</button>
+				{{/holes}}
+			</div>
+		</div>
+		<button class="js-next-hole gwf-btn">Next</button>
+	</script>
+
 	<script type="text/template" id="hole-view-template">
-	<div class="hole-view">
+	<div class="hole-view" data-hole="{{holeNum}}">
 		<div class="hole-view-inner">
 			<div class="hole-num">
 				<span>Hole {{holeDisplay}} of {{totalHoles}}</span>

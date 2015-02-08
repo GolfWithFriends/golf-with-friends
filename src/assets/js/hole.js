@@ -120,7 +120,33 @@
 			'click .js-next-hole': 'showNextHole',
 			'click .js-prev-hole': 'showPrevHole',
 			'swiperight': 'showPrevHole',
-			'swipeleft': 'showNextHole'
+			'swipeleft': 'showNextHole',
+			'click .nav-hole': 'showHole'
+		},
+
+		showHole: function (ev) {
+			var btn = $(ev.currentTarget).addClass('current'),
+				hole = parseInt(btn.data('hole'), 10) - 1,
+				isAhead = hole > this.currentHoleNum;
+
+			btn.siblings().removeClass('current');
+
+			var view = this.getHoleView(hole);
+			view.$el.addClass(isAhead ? 'next' : 'prev');
+			this.currentHoleView.$el.addClass(isAhead ? 'prev' : 'next');
+			view.$el.removeClass(isAhead ? 'next' : 'prev');
+			this.currentHoleView.destroy();
+			if (this.prevHoleView) {
+				this.prevHoleView.destroy();
+			}
+			if (this.nextHoleView) {
+				this.nextHoleView.destroy();
+			}
+
+			this.currentHoleNum = hole;
+			this.currentHoleView = view;
+			this.prevHoleView = this.renderPrev();
+			this.nextHoleView = this.renderNext();
 		},
 
 		showPrevHole: function (ev) {
@@ -139,7 +165,7 @@
 			this.nextHoleView.unbindAnnyang();
 			this.currentHoleView = this.prevHoleView;
 			this.currentHoleView.bindAnnyang();
-			this.renderPrev();
+			this.prevHoleView = this.renderPrev();
 			this.updateNav();
 		},
 
@@ -159,7 +185,7 @@
 			this.prevHoleView.unbindAnnyang();
 			this.currentHoleView = this.nextHoleView;
 			this.currentHoleView.bindAnnyang();
-			this.renderNext();
+			this.nextHoleView = this.renderNext();
 			this.updateNav();
 		},
 
@@ -167,8 +193,8 @@
 			var self = this;
 			var hasNext = self.currentHoleNum < (self.totalHoles - 1);
 			var hasPrev = self.currentHoleNum > 0;
-			this.$nav.find(".js-prev-hole").toggle(hasPrev);
-			this.$nav.find(".js-next-hole").toggle(hasNext);
+			var holeButtons = this.$nav.find(".nav-hole").removeClass("current");
+			holeButtons.filter("[data-hole=" + (self.currentHoleNum + 1) + "]").addClass("current");
 		},
 
 		getHoleViewData: function (holeNum) {
@@ -190,29 +216,30 @@
 			};
 		},
 
+		getHoleView: function (holeNum) {
+			var self = this;
+			var holeData = this.getHoleViewData(holeNum);
+			var viewData = _.extend(holeData, {
+				pager: self.$el
+			});
+			var view = new holeView(viewData);
+			return view;
+		},
+
 		renderPrev: function () {
 			if (this.currentHoleNum === 0) {
 				this.prevHoleView = undefined;
 				return;
 			}
-			var self = this;
-			var holeData = this.getHoleViewData(this.currentHoleNum - 1);
-			var viewData = _.extend(holeData, {
-				pager: self.$el
-			});
-			this.prevHoleView = new holeView(viewData);
-			this.prevHoleView.$el.addClass('prev');
+			var view = this.getHoleView(this.currentHoleNum - 1);
+			view.$el.addClass('prev');
 		},
 
 		renderCurrent: function () {
 			var self = this;
-			var holeData = this.getHoleViewData(this.currentHoleNum);
-			var viewData = _.extend(holeData, {
-				pager: self.$el
-			});
-			this.currentHoleView = new holeView(viewData);
-			this.currentHoleView.bindAnnyang();
-			app.loader.hide();
+			var view = this.getHoleView(this.currentHoleNum);
+			view.bindAnnyang();
+			return view;
 		},
 
 		renderNext: function() {
@@ -220,13 +247,32 @@
 				this.nextHoleView = undefined;
 				return;
 			}
+			var view = this.getHoleView(this.currentHoleNum + 1);
+			view.$el.addClass('next');
+			return view;
+		},
+
+		renderNav: function() {
 			var self = this;
-			var holeData = this.getHoleViewData(this.currentHoleNum + 1);
-			var viewData = _.extend(holeData, {
-				pager: self.$el
+			var navTemplate = $("#nav-template").html();
+			var html = Mustache.render(navTemplate, {
+				holes: _.range(1, self.totalHoles + 1)
 			});
-			this.nextHoleView = new holeView(viewData);
-			this.nextHoleView.$el.addClass('next');
+			this.$nav.html(html);
+
+			var inner  = this.$nav.find(".nav-inner");
+			var innerWidth = 0;
+			inner.find(".nav-hole").each(function () { innerWidth += $(this).outerWidth(); });
+			inner.width(innerWidth + inner.offset().left);
+			this.updateNav();
+		},
+
+		render: function () {
+			this.renderNav();
+			this.currentHoleView = this.renderCurrent();
+			this.prevHoleView = this.renderPrev();
+			this.nextHoleView = this.renderNext();
+			app.loader.hide();
 		},
 
 		initialize: function (o) {
@@ -235,10 +281,7 @@
 			this.currentHoleNum = o.holeNum;
 			this.totalHoles = o.course.get('holes').length;
 			this.$nav = this.$(".hole-nav");
-			this.renderCurrent();
-			this.renderNext();
-			this.renderPrev();
-			this.updateNav();
+			this.render();
 		}
 	});
 
