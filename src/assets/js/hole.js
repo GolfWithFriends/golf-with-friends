@@ -49,7 +49,7 @@
 		},
 
 		destroy: function () {
-
+			this.remove();
 		},
 
 		setScore: function (score) {
