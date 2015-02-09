@@ -133,9 +133,17 @@
 
 			var view = this.getHoleView(hole);
 			view.$el.addClass(isAhead ? 'next' : 'prev');
-			this.currentHoleView.$el.addClass(isAhead ? 'prev' : 'next');
-			view.$el.removeClass(isAhead ? 'next' : 'prev');
-			this.currentHoleView.destroy();
+
+			var showing = view;
+			var hiding = this.currentHoleView;
+			_.delay(function () {
+				hiding.$el.addClass(isAhead ? 'prev' : 'next');
+				showing.$el.removeClass(isAhead ? 'next' : 'prev');
+			}, 5);
+			_.delay(function () {
+				hiding.destroy();
+			}, 1000);
+
 			if (this.prevHoleView) {
 				this.prevHoleView.destroy();
 			}
@@ -154,17 +162,19 @@
 				return false;
 			}
 
-			this.currentHoleView.$el.addClass('next');
-			this.prevHoleView.$el.removeClass('prev');
 			if (this.nextHoleView) {
 				this.nextHoleView.destroy();
 			}
 
 			this.currentHoleNum--;
+			this.currentHoleView.$el.addClass('next');
+			this.currentHoleView.unbindAnnyang();			
 			this.nextHoleView = this.currentHoleView;
-			this.nextHoleView.unbindAnnyang();
+
+			this.prevHoleView.$el.removeClass('prev');
 			this.currentHoleView = this.prevHoleView;
 			this.currentHoleView.bindAnnyang();
+
 			this.prevHoleView = this.renderPrev();
 			this.updateNav();
 		},
@@ -174,17 +184,19 @@
 				return false;
 			}
 
-			this.currentHoleView.$el.addClass("prev");
-			this.nextHoleView.$el.removeClass("next");
 			if (this.prevHoleView) {
 				this.prevHoleView.destroy();
 			}
 
 			this.currentHoleNum++;
+			this.currentHoleView.$el.addClass("prev");
+			this.currentHoleView.unbindAnnyang();
 			this.prevHoleView = this.currentHoleView;
-			this.prevHoleView.unbindAnnyang();
+
+			this.nextHoleView.$el.removeClass("next");
 			this.currentHoleView = this.nextHoleView;
 			this.currentHoleView.bindAnnyang();
+
 			this.nextHoleView = this.renderNext();
 			this.updateNav();
 		},
@@ -233,6 +245,7 @@
 			}
 			var view = this.getHoleView(this.currentHoleNum - 1);
 			view.$el.addClass('prev');
+			return view;
 		},
 
 		renderCurrent: function () {
