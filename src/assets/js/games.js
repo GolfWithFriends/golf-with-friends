@@ -191,16 +191,12 @@
 	app.games.init = function () {
 		var u = app.viewstate.get('user');
 		if (u) {
-			var user = new models.fbUserById(u.id);
-			user.on('sync', function () {
-				init(user);
-			});
+            init(u);
 		}
 		else {
 			// this user stuff can be removed when the backbone user object is stored in the viewstate
 			app.viewstate.on('set:user', function(vs, u) {
-				var user = models.fbUserById(u.id);
-				init(user);
+                init(u);
 			});
 		}
 	};

@@ -80,14 +80,11 @@
 					return;
 				}
 
-				var user = new models.fbUserById(u.id);
-				user.once('sync', function () {
-					jv.bind({
-						user: user,
-						game: game
-					});
-					app.loader.hide();
-				});
+                jv.bind({
+                    user: user,
+                    game: game
+                });
+                app.loader.hide();
 			}
 		});
 	};
