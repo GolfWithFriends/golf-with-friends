@@ -11,7 +11,7 @@ showLoading: true
 	</div>
 
 	<script type="text/template" id="nav-template">
-		<button class="js-prev-hole gwf-btn">Prev</button>
+		<button class="js-prev-hole gwf-btn"><i class="fa fa-arrow-left"></i></button>
 		<div class="nav-scroll">
 			<div class="nav-inner">
 				{{#holes}}
@@ -19,7 +19,7 @@ showLoading: true
 				{{/holes}}
 			</div>
 		</div>
-		<button class="js-next-hole gwf-btn">Next</button>
+		<button class="js-next-hole gwf-btn"><i class="fa fa-arrow-right"></i></button>
 	</script>
 
 	<script type="text/template" id="hole-view-template">
