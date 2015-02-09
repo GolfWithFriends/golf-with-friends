@@ -119,8 +119,8 @@
 		events: {
 			'click .js-next-hole': 'showNextHole',
 			'click .js-prev-hole': 'showPrevHole',
-			'swiperight': 'showPrevHole',
-			'swipeleft': 'showNextHole',
+			'swiperight .pager-inner': 'showPrevHole',
+			'swipeleft .pager-inner': 'showNextHole',
 			'click .nav-hole': 'showHole'
 		},
 
@@ -203,10 +203,17 @@
 
 		updateNav: function () {
 			var self = this;
-			var hasNext = self.currentHoleNum < (self.totalHoles - 1);
-			var hasPrev = self.currentHoleNum > 0;
 			var holeButtons = this.$nav.find(".nav-hole").removeClass("current");
-			holeButtons.filter("[data-hole=" + (self.currentHoleNum + 1) + "]").addClass("current");
+			var currentHoleBtn = holeButtons.filter("[data-hole=" + (self.currentHoleNum + 1) + "]").addClass("current");
+
+			var scroller = this.$(".nav-scroll");
+			var scrollInner = scroller.find(".nav-inner");
+			var currScroll = scroller.scrollLeft();
+
+			var destScroll = currScroll + currentHoleBtn.position().left - (scroller.width() / 2) - (currentHoleBtn.outerWidth() / 2);
+			scroller.animate({
+				scrollLeft: destScroll
+			});
 		},
 
 		getHoleViewData: function (holeNum) {
@@ -232,7 +239,7 @@
 			var self = this;
 			var holeData = this.getHoleViewData(holeNum);
 			var viewData = _.extend(holeData, {
-				pager: self.$el
+				pager: self.$el.find(".pager-inner")
 			});
 			var view = new holeView(viewData);
 			return view;

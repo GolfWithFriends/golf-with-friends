@@ -6,7 +6,7 @@ showLoading: true
 {% extends 'src/layouts/base.swig' %}
 {% block content %}
 	<div id="hole-pager" class="hole-pager">
-
+		<div class="pager-inner"></div>
 		<div class="hole-nav"></div>
 	</div>
 
