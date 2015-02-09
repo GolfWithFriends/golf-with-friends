@@ -9,23 +9,18 @@
     
     app.fb.onAuth(function globalOnAuth(authData) {
         if (authData) {
-			var provider = authData.provider;
 			var id = authData.uid;
-			
-            var userData = authData[provider];
-            userData.id = id;
-			
-			//checks the current display name, sets user on db sync 
-			if(!userData.displayName) {
-				var user = new app.models.fbUserById(id);
 
-				user.on('sync', function(){				
-				    userData = user.toJSON()[provider];
-					app.viewstate.set('user', userData).trigger('change:user');
-				});
-			}
-
-            app.viewstate.set('user', userData);
+			//checks the current display name, sets user on db sync
+            var user = new app.models.fbUserById(id);
+            user.on('sync', function() {
+                app.viewstate.set('user', user);
+            });
+            
+            //TODO Check Displayname
+            //if(!user.displayName) {
+            //}
+            
         } else {
             if ($.isEmptyObject(app.viewstate.attributes) && window.location.pathname != '/app/'){
                 window.location.href = '/app/';
