@@ -19,8 +19,8 @@ showLoading: true
 			</td>
 			<td rowspan="3" colspan="2" id="ch">
 				<div class="crosshair-wrap">
-					<img src="http://i.imgur.com/bKebHQK.png" class="wind-circle" />
-					<img src="http://i.imgur.com/KCnJi7S.png" class="wind-arrow" />
+					<img src="//i.imgur.com/bKebHQK.png" class="wind-circle" />
+					<img src="//i.imgur.com/KCnJi7S.png" class="wind-arrow" />
 					<div class="wind-mph">
 						<p class="north-n">N</p>
 						<p class="number">--</p>
