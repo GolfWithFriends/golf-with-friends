@@ -146,7 +146,7 @@
 	function getHourlyForecastJSON(zc){
 		var JSON = $.ajax({
 			"async" : true,
-			"url" : "http://api.wunderground.com/api/" + wundergroundHourlyApiKey + "/hourly/q/" + zc + ".json?callback=?",
+			"url" : "//api.wunderground.com/api/" + wundergroundHourlyApiKey + "/hourly/q/" + zc + ".json?callback=?",
 			"dataType" : "jsonp",
 			"method" : "GET",
 			"error": function (jqXHR, textStatus, errorThrown) {
