@@ -189,15 +189,17 @@
 
 	app.games = {};
 	app.games.init = function () {
-		var u = app.viewstate.get('user');
+		var u = app.auth.user;
 		if (u) {
-            init(u);
+			u.on('sync', function() {
+				init(u);
+			});
 		}
 		else {
 			// this user stuff can be removed when the backbone user object is stored in the viewstate
-			app.viewstate.on('set:user', function(vs, u) {
-                init(u);
-			});
+			// app.viewstate.on('set:user', function(vs, u) {
+   //              init(u);
+			// });
 		}
 	};
 })(app, app.models);

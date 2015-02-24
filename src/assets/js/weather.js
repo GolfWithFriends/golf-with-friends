@@ -14,7 +14,7 @@
 	function getWeather(zip_code){
 		$.ajax({
 			"async" : true,
-			"url" : "http://api.wunderground.com/api/" + wundergroundApiKey + "/conditions/q/" + zip_code + ".json?callback=?",
+			"url" : "//api.wunderground.com/api/" + wundergroundApiKey + "/conditions/q/" + zip_code + ".json?callback=?",
 			"dataType" : "jsonp",
 			"method" : "GET",
 			"error": function (jqXHR, textStatus, errorThrown) {

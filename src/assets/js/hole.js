@@ -1,4 +1,4 @@
-(function (app, models) {
+(function (app, models, auth) {
 
 
 	var holeView = Backbone.View.extend({
@@ -219,7 +219,7 @@
 		getHoleViewData: function (holeNum) {
 			var holes = this.course.get('holes');
 			var hole = holes[holeNum];
-			var thisUser = app.viewstate.get('user');
+			var thisUser = auth.user;
 			var thisPlayer = _.findWhere(this.game.get('players'), {
 				playerId: thisUser.id
 			});
@@ -324,4 +324,4 @@
 		});
 	};
 
-})(app, app.models);
+})(app, app.models, app.auth);

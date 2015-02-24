@@ -1,4 +1,4 @@
-(function (models) {
+(function (models, auth) {
 	"use strict";
 
 	function redirectToGame(game) {
@@ -55,6 +55,21 @@
 		}
 	});
 
+	function initView (view, game, user) {
+		var players = game.get('players');
+		var alreadyIn = _.findWhere(players, { playerId: u.id });
+		if (alreadyIn) {
+			redirectToGame(game);
+			return;
+		}
+
+		jv.bind({
+			user: user,
+			game: game
+		});
+		app.loader.hide();
+	}
+
 
 	app.join = {};
 	app.join.init = function () {
@@ -71,21 +86,12 @@
 
 		var game = new models.fbGameModel(gameId);
 		game.on('sync', function() {
-			var u = app.viewstate.get('user');
+			var u = auth.user;
 			if (u) {
-				var players = game.get('players');
-				var alreadyIn = _.findWhere(players, { playerId: u.id });
-				if (alreadyIn) {
-					redirectToGame(game);
-					return;
-				}
-
-                jv.bind({
-                    user: user,
-                    game: game
-                });
-                app.loader.hide();
+				u.on('sync', function () { 
+					initView(jv, game, u);
+				});
 			}
 		});
 	};
-})(app.models);
+})(app.models, app.auth);
