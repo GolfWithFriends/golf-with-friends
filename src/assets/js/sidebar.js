@@ -1,4 +1,4 @@
-(function (app, auth) {
+(function (app, auth, models) {
 	"use strict";
 
     var body = $('body');
@@ -9,7 +9,18 @@
 		});
 	}
 
-    $('.nav-expander').on('click', function (ev) {
+	var navExp = $('.nav-expander');
+	app.viewstate.on('change:notifications', function (vs, n) {
+		var notif = navExp.siblings('.notif');
+		if (!notif.length) {
+			notif = $("<div class='notif' />").insertBefore(navExp);
+		}
+
+		notif.html(n.length.toString());
+		notif.toggle(n.length > 0);
+	});
+
+    navExp.on('click', function (ev) {
         ev.preventDefault();
         body.toggleClass('sidebar-opened');
     });
@@ -20,7 +31,7 @@
 		$('#sign-in').show();
     });
 
-        //Click events
+    // Click events
     $('.bt-logout').on('click', function (e) { 
         e.preventDefault();
         app.auth.logout();
@@ -35,7 +46,7 @@
         var loginPromise = app.auth.login(provider);
 
         loginPromise.done(function (u) {
-        	log("done", u);
+        	// log("done", u);
         	if (window.location.href.indexOf("games") < 0) {
 				window.location.href = "/app/games.html";
 			}
@@ -43,7 +54,18 @@
         loginPromise.fail(function () {
     		console.error("failed login");
         });
-
     });
 
-})(app, app.auth);
+    var invite = new models.invite({id: auth.user.id});
+    invite.save();
+	invite.on('sync', function () {
+		if ((invite.get('items') || []).length === 0) {
+			invite.add('test-invite');
+			invite.save();
+		}
+
+		app.viewstate.set('notifications', invite.get('items'));
+	});
+	log(invite, invite.url());
+
+})(app, app.auth, app.models);

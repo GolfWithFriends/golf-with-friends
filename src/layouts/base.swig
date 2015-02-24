@@ -56,6 +56,7 @@
 		<script type="text/javascript" src="/js/models/courseModels.js"></script>
 		<script type="text/javascript" src="/js/models/gameModels.js"></script>
         <script type="text/javascript" src="/js/models/userModels.js"></script>
+        <script type="text/javascript" src="/js/models/inviteModel.js"></script>
 
 		<script type="text/javascript" src="/js/common.js"></script>
 		<script type="text/javascript" src="/js/firebase.js"></script>
