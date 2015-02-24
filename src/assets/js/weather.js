@@ -1,7 +1,4 @@
 (function (models) {
-	if ($.isEmptyObject(app.viewstate.attributes)){
-		$(".weather-link").addClass("hidden");
-	}
 
 	var wundergroundApiKey = "c6b9d3f094b7d82b";
 	var wundergroundHourlyApiKey = "776e797e964493d4";
