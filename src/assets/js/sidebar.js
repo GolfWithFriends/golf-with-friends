@@ -56,16 +56,17 @@
         });
     });
 
-    var invite = new models.invite({id: auth.user.id});
-    invite.save();
-	invite.on('sync', function () {
-		if ((invite.get('items') || []).length === 0) {
-			invite.add('test-invite');
-			invite.save();
-		}
+    if (auth.user) {
+    	var invite = new models.invite({id: auth.user.id});
+	    invite.save();
+		invite.on('sync', function () {
+			if ((invite.get('items') || []).length === 0) {
+				invite.add('test-invite');
+				invite.save();
+			}
 
-		app.viewstate.set('notifications', invite.get('items'));
-	});
-	log(invite, invite.url());
+			app.viewstate.set('notifications', invite.get('items'));
+		});
+    }
 
 })(app, app.auth, app.models);
